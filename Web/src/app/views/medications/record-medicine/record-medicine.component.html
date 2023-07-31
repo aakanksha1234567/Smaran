@@ -1,0 +1,98 @@
+<form>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="Inputmedicinename" >Medicine name</label>
+        <input type="text" class="form-control" id="Inputmedicinename" aria-describedby="form-text" placeholder="Enter medicine name">
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="Inputmedicinemg">Medicine mg</label>
+        <input type="number" class="form-control" id="Inputmedicinemg" placeholder="Enter medicine mg">
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="Inputmedicinedose" >Medicine dose</label><br>
+        <div class="btn-group" dropdown>
+          <button type="button" class="btn btn-warning">Repeat</button>
+          <button id="button-split" type="button" dropdownToggle class="btn btn-warning dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+            <span class="caret"></span>
+            <span class="sr-only visually-hidden">Split button!</span>
+          </button>
+          <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+            <li role="menuitem"><a class="dropdown-item" href="#">Everyday</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Alternate day</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Weekly</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Fortnightly</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Every 3 months</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Every 6 months</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="me-2 form-group">
+        <label for="Inputmedicinedose" >Schedule Time</label><br>
+        <div class="btn-group" dropdown >
+          <button type="button" class="btn btn-warning">Medicine at</button>
+          <button id="button-split" type="button" dropdownToggle class="btn btn-warning dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+            <span class="caret"></span>
+            <span class="sr-only visually-hidden">Split button!</span>
+          </button>
+          <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+            <li role="menuitem"><a class="dropdown-item" href="#">Pre Breakfast</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Post Breakfast</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Pre Lunch</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Post Lunch</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Pre Dinner</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Post Dinner</a></li> 
+          </ul>
+        </div>
+        <div class="col-lg-6">
+        <div class="form-check-inline">
+        <label for="Inputmedicinedose" >Status</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+          <label class="form-check-label" for="inlineRadio1">Taken</label><br>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+          <label class="form-check-label" for="inlineRadio2">Not Taken</label><br>
+        </div>
+        </div>
+      </div>
+      </div>
+  </div><br><br>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="Inputmedicineduration">Medicine duration(in days)</label>
+          <input type="number" class="form-control" id="Inputmedicineduration_custom" placeholder="Enter custom duration">
+          <p>NOTE : If range is not entered it will be considered till infinite</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="Inputmedicalreaction">Medical Reaction</label>
+          <input type="text" class="form-control" id="Inputmedicalreaction" placeholder="Enter medical reaction">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="me-2 btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      
+    </div>
+  </div>
+</form>

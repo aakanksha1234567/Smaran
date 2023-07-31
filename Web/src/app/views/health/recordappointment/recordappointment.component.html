@@ -1,0 +1,36 @@
+<br>
+<form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" autocomplete="off">  
+    <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="Inputmeetingwith" >Appointment at:</label>
+            <input type="text" class="form-control"  aria-describedby="form-text" placeholder="Enter appointment at" formControlName="appointmentAt">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="Inputmeetingtime">Appointment time :</label><br>
+            <input type="datetime-local" id="Inputmeetingtime" name="meetingtime" formControlName="appointmentTime"> 
+        </div>
+    </div></div><br><br>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <label for="Inputmeetingnotes">Appointment notes:</label>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Meeting notes :" id="floatingTextarea2" style="height: 100px" formControlName="appointmentNotes"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label for="Inputmeetingattachment">Upload attachment(in pdf/jpeg etc format):</label>
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFileMultiple" formControlName="appointmentAttachment" (change)="handleFileInput($any($event.target).files)">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" type="submit" [disabled]="!appointmentForm.valid" >SUBMIT</button>
+        </div>
+    </div>
+</form> 

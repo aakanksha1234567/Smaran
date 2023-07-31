@@ -1,0 +1,58 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form cForm [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off"> 
+              <h1>Register</h1>
+              <p class="text-medium-emphasis">Create your account</p>
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="First Name" formControlName="firstName"/>
+              </c-input-group>
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="Last Name" formControlName="lastName"/>
+              </c-input-group>
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="Phone Number" formControlName="pohoneNumber"/>
+              </c-input-group> 
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="Email" formControlName="email"/>
+              </c-input-group>
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="Password" type="password" formControlName="password"/>
+              </c-input-group>
+              <c-input-group class="mb-4"> 
+                <input  cFormControl placeholder="Repeat password" type="password" formControlName="repeatPassword"/>
+                <div class="error-message" *ngIf="registerForm.errors?.['PasswordNoMatch']">
+                  Password does'nt match.
+                </div>
+              </c-input-group>
+              <c-input-group class="mb-3"> 
+                <label class="form-label" for="form3Example1cg"><b>Register for</b></label>
+                <input class="form-check-input marleft10" type="radio"  id="inlineRadio1" value="1" formControlName="registerFor">
+                <label class="form-check-label marleft10" for="inlineRadio1">Self</label> 
+                <input class="form-check-input marleft10" type="radio"  id="inlineRadio2" value="2" formControlName="registerFor">
+                <label class="form-check-label marleft10" for="inlineRadio2">Family</label>
+              </c-input-group>
+              <br/> 
+              <c-input-group  class="mb-3">  
+                <select #questions (change)="changeFn($event)" style="width: 100%; height: 40px; border: 1px solid lightgray;">  
+                  <option *ngFor="let lst of listOfQuestions" [value]="lst.Value">  
+                      {{lst.Name}}
+                  </option>
+                </select>  
+              </c-input-group>
+              <c-input-group class="mb-3"> 
+                <input  cFormControl placeholder="Answer" formControlName="answerOne"/>
+              </c-input-group>  
+              <div class="d-grid">
+                <button cButton color="success" type="submit" id="submitbtn" [disabled]="!registerForm.valid">Create Account</button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
