@@ -40,6 +40,7 @@ export class LoginComponent {
         swal.fire({title:"WelCome To System ! Login Successful.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
 
             localStorage.setItem('token', response.accessToken);
+            localStorage.setItem('userId', response.responseData); 
             this.router.navigate(["/dashboard"]);
       }
       else

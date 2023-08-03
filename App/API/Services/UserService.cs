@@ -14,7 +14,7 @@ namespace SmaranAPI.Services
 {
     public interface IUserService
     {
-        bool Authenticate(string email, string password);
+        (bool,int) Authenticate(string email, string password);
         IList<User> GetAll();
         User GetByEmail(string email);
         User GetById(int id);
@@ -70,19 +70,19 @@ namespace SmaranAPI.Services
             }
         }
 
-        public bool Authenticate(string email, string password)
+        public (bool,int) Authenticate(string email, string password)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
             if (user != null)
             {
                 if (user.Password == password)
                 {
-                    return true;
+                    return (true, user.Id);
                 }
 
-                return false;
+                return (false,0);
             }
-            return false;
+            return (false,0);
         }
 
         public IList<User> GetAll()
@@ -180,8 +180,10 @@ namespace SmaranAPI.Services
                         Notifications.Add(
                                 new NotificationResponse()
                                 {
+                                    TypeOfMeeting = result["TypeOfMeeting"] == DBNull.Value ? 0 : Convert.ToInt32(result["TypeOfMeeting"]),
                                     Description = result["Description"] == DBNull.Value ? "" : Convert.ToString(result["Description"]),
-                                    ScheduleTime = Convert.ToDateTime(result["ScheduleTime"])
+                                    ScheduleTime = Convert.ToDateTime(result["ScheduleTime"]),
+                                    FileAttachment = result["FileAttachment"] == DBNull.Value ? "" : Convert.ToString(result["FileAttachment"]),
                                 }
                             );
                     }

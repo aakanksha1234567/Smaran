@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
 using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using Newtonsoft.Json;
 
 namespace SmaranAPI.Controllers
 {
@@ -85,8 +87,8 @@ namespace SmaranAPI.Controllers
         // POST: api/RecordMedicines
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<RecordMedicine>> PostRecordMedicine(RecordMedicineRequest recordMedicineRequest)
-        {
+        public async Task<ActionResult<ResponseObject>> PostRecordMedicine(RecordMedicineRequest recordMedicineRequest)
+        { 
             var recordMedicine = _mapper.Map<RecordMedicine>(recordMedicineRequest);
             recordMedicine.CreatedDate = DateTime.Now;
 
