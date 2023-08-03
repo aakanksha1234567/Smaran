@@ -25,4 +25,9 @@ export class AccountService extends IAccountService {
     register(model: IRegisterModel): Observable<any> { 
         return this.baseService.postRequest(APIUrls.RegisterUser,model);
     } 
+
+    getNotifications(): Observable<any> { 
+        let userId = (Number)(localStorage.getItem('userId')); 
+        return this.baseService.getRequest(APIUrls.GetNotification+userId);
+    } 
 }
