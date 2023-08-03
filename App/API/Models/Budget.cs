@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
-namespace SmaranAPI.Models
+namespace API.Models
 {
     public partial class Budget
     {
@@ -14,5 +12,7 @@ namespace SmaranAPI.Models
         public decimal Expenditure { get; set; }
         public decimal MonthlyBalance { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        public virtual User User { get; set; } = null!;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SmaranAPI.RequestModel
+namespace API.RequestModel
 {
     public class PastAchievementRequest
     {
@@ -16,5 +16,6 @@ namespace SmaranAPI.RequestModel
         public string Comment { get; set; }
         public string Link { get; set; }
         public string Attachment { get; set; }
+        public string Type { get; set; }
     }
 }

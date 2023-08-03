@@ -6,6 +6,7 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
+import {ForgetpasswordComponent} from './views/pages/forgetpassword/forgetpassword.component';
 import { AuthGuard } from './shared/auth-gard/auth.gard';
 
 const routes: Routes = [
@@ -124,6 +125,13 @@ const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'forgetpassword',
+    component: ForgetpasswordComponent,
+    data: {
+      title: 'Forget Password page'
     }
   },
   {path: '**', redirectTo: 'dashboard'}

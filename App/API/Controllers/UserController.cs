@@ -1,13 +1,13 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.RequestModel;
 using SmaranAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ResponseModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,6 +29,30 @@ namespace SmaranAPI.Controllers
         public IEnumerable<User> Get()
         {
             return _userService.GetAll();
+        }
+
+        // GET api/<UserController>/abc@xyz.com
+        [Authorize]
+        [HttpGet("{email}")]
+        public User GetByEmail(string email)
+        {
+            return _userService.GetByEmail(email);
+        }
+
+        // GET api/<UserController>/5
+        [Authorize]
+        [HttpGet("{id}")]
+        public User GetById(int id)
+        {
+            return _userService.GetById(id);
+        }
+
+        // GET api/<UserController>/5/Notifications
+        [Authorize]
+        [HttpGet("{id}/Notifications")]
+        public IEnumerable<NotificationResponse> GetUserNotifications(int id)
+        {
+            return _userService.GetNotifications(id);
         }
 
         // POST api/<UserController>
