@@ -6,13 +6,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.Models;
+using API.RequestModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmaranAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class PastAchievementsController : ControllerBase
     {
         private readonly SmaranContext _context;
@@ -43,6 +44,13 @@ namespace SmaranAPI.Controllers
             }
 
             return pastAchievement;
+        }
+
+        // GET: api/PastAchievements/User/5
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<IEnumerable<PastAchievement>>> GetPastAchievementsByUser(int userId)
+        {
+            return await _context.PastAchievements.Where(a => a.UserId == userId).ToListAsync();
         }
 
         // PUT: api/PastAchievements/5

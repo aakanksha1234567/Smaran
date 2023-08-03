@@ -1,8 +1,7 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.RequestModel;
 using SmaranAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -29,6 +28,22 @@ namespace SmaranAPI.Controllers
         public IEnumerable<User> Get()
         {
             return _userService.GetAll();
+        }
+
+        // GET api/<UserController>/abc@xyz.com
+        [Authorize]
+        [HttpGet("{email}")]
+        public User GetByEmail(string email)
+        {
+            return _userService.GetByEmail(email);
+        }
+
+        // GET api/<UserController>/5
+        [Authorize]
+        [HttpGet("{id}")]
+        public User GetById(int id)
+        {
+            return _userService.GetById(id);
         }
 
         // POST api/<UserController>
