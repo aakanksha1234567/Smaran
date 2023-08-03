@@ -9,6 +9,8 @@ import { RecordmeetingsComponent } from './recordmeetings/recordmeetings.compone
 import { RecordachievementsComponent } from './recordachievements/recordachievements.component';
 import { PastnotesComponent } from './pastnotes/pastnotes.component';
 import { PastachievementsComponent } from './pastachievements/pastachievements.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormModule } from '@coreui/angular';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { PastachievementsComponent } from './pastachievements/pastachievements.c
   ],
   imports: [
     CommonModule,
-    CorporateRoutingModule
+    CorporateRoutingModule,
+    FormModule,
+    ReactiveFormsModule
   ]
 })
 export class CorporateModule { }

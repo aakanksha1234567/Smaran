@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ReachoutRoutingModule } from './reachout-routing.module';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { FormModule } from '@coreui/angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { FeedbackComponent } from './feedback/feedback.component';
   ],
   imports: [
     CommonModule,
-    ReachoutRoutingModule
+    ReachoutRoutingModule,
+    FormModule,
+    ReactiveFormsModule
   ]
 })
 export class ReachoutModule { }
