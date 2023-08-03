@@ -74,6 +74,7 @@ export class RegisterComponent {
       if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
         swal.fire({title:"your account is created please login with new credential!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false}); 
         localStorage.removeItem('token');
+        localStorage.removeItem('userId'); 
             this.router.navigate(["/login"]);
       }
       else if(response.error==SystemMessages.UserExistsCode)

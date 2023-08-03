@@ -9,6 +9,7 @@ using SmaranAPI.Services;
 using System.Text;
 using ConfigurationManager = API.Model.ConfigurationManager;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,18 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200").AllowAnyHeader()
+                                .AllowAnyMethod(); ;
+        });
+});
+
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -87,6 +100,8 @@ if (app.Environment.IsDevelopment())
  
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -97,5 +112,12 @@ app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
+    
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 
 app.Run();

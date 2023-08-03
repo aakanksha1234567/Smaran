@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
+using Newtonsoft.Json;
+using API.Services;
 
 namespace SmaranAPI.Controllers
 {
@@ -86,15 +88,31 @@ namespace SmaranAPI.Controllers
         // POST: api/Appointment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Appointment>> PostAppointment(AppointmentRequest appointmentRequest)
+        public async Task<ActionResult<ResponseObject>> PostAppointment()
         {
-            var appointment = _mapper.Map<Appointment>(appointmentRequest);
-            appointment.CreatedDate = DateTime.Now;
-            appointment.UpdateDate = DateTime.Now;
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Get For Collection from frontend
+                var formCollection = await Request.ReadFormAsync();
+                var getModels = formCollection["AppointmentRequest"];
 
-            return CreatedAtAction("GetAppointment", new { id = appointment.Id }, appointment);
+                // upload file funcationality
+                var fileName = await FileUploadService.Upload(formCollection);
+
+                var modelData = JsonConvert.DeserializeObject<AppointmentRequest>(getModels);
+                var appointment = _mapper.Map<Appointment>(modelData);
+                appointment.CreatedDate = DateTime.Now;
+                appointment.UpdateDate = DateTime.Now;
+                appointment.AppointmentAttachment = fileName;
+                _context.Appointments.Add(appointment);
+                await _context.SaveChangesAsync();
+                 
+                return new ResponseObject() { Data = appointment.Id };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject() { Error = ex.Message }; ;
+            }
         }
 
         // DELETE: api/Appointment/5
@@ -116,6 +134,7 @@ namespace SmaranAPI.Controllers
         private bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.Id == id);
-        }
+        } 
+
     }
 }

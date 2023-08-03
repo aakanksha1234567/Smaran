@@ -49,7 +49,7 @@ namespace SmaranAPI.Controllers
 
         // GET api/<UserController>/5/Notifications
         [Authorize]
-        [HttpGet("{id}/Notifications")]
+        [HttpGet("Notifications/{id}")]
         public IEnumerable<NotificationResponse> GetUserNotifications(int id)
         {
             return _userService.GetNotifications(id);
