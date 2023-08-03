@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#nullable disable
-
-namespace SmaranAPI.Models
+namespace API.Models
 {
     public partial class SmaranContext : DbContext
     {
@@ -17,34 +16,22 @@ namespace SmaranAPI.Models
         {
         }
 
-        public virtual DbSet<Appointment> Appointments { get; set; }
-        public virtual DbSet<Budget> Budgets { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
-        public virtual DbSet<MedicalReport> MedicalReports { get; set; }
-        public virtual DbSet<Note> Notes { get; set; }
-        public virtual DbSet<PastAchievement> PastAchievements { get; set; }
-        public virtual DbSet<RecordMedicine> RecordMedicines { get; set; }
-        public virtual DbSet<RecordMeeting> RecordMeetings { get; set; }
-        public virtual DbSet<RecordVaccine> RecordVaccines { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserSecurityQa> UserSecurityQas { get; set; }
-        public virtual DbSet<VaccineAge> VaccineAges { get; set; }
-        public virtual DbSet<VaccineAgeMapping> VaccineAgeMappings { get; set; }
-        public virtual DbSet<VaccineDose> VaccineDoses { get; set; }
-
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Server=CIPL-LPT-957;Database=Smaran;User=sa;Password=Admin@123;");
-//            }
-//        }
-
+        public virtual DbSet<Appointment> Appointments { get; set; } = null!;
+        public virtual DbSet<Budget> Budgets { get; set; } = null!;
+        public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
+        public virtual DbSet<MedicalReport> MedicalReports { get; set; } = null!;
+        public virtual DbSet<Note> Notes { get; set; } = null!;
+        public virtual DbSet<PastAchievement> PastAchievements { get; set; } = null!;
+        public virtual DbSet<RecordMedicine> RecordMedicines { get; set; } = null!;
+        public virtual DbSet<RecordMeeting> RecordMeetings { get; set; } = null!;
+        public virtual DbSet<RecordVaccine> RecordVaccines { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<UserSecurityQa> UserSecurityQas { get; set; } = null!;
+        public virtual DbSet<VaccineAge> VaccineAges { get; set; } = null!;
+        public virtual DbSet<VaccineAgeMapping> VaccineAgeMappings { get; set; } = null!;
+        public virtual DbSet<VaccineDose> VaccineDoses { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.ToTable("Appointment");
@@ -52,17 +39,14 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.AppointmentAt)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.AppointmentAttachment)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.AppointmentNotes)
-                    .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
@@ -73,6 +57,12 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Appointments)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Appointme__UserI__37A5467C");
             });
 
             modelBuilder.Entity<Budget>(entity =>
@@ -92,6 +82,12 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Savings).HasColumnType("decimal(8, 3)");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Budgets)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Budget__UserID__29572725");
             });
 
             modelBuilder.Entity<Feedback>(entity =>
@@ -101,23 +97,26 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Attachment)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Comments)
-                    .IsRequired()
                     .HasMaxLength(5000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Feedbacks)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Feedback__UserID__403A8C7D");
             });
 
             modelBuilder.Entity<MedicalReport>(entity =>
@@ -127,28 +126,30 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Attachment)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Comments)
-                    .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.GivenBy)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Title)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.MedicalReports)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__MedicalRe__UserI__3A81B327");
             });
 
             modelBuilder.Entity<Note>(entity =>
@@ -156,30 +157,36 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Attachment)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Notes)
-                    .IsRequired()
                     .HasMaxLength(5000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Subject)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Title)
-                    .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Notes)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Notes__UserID__3D5E1FD2");
             });
 
             modelBuilder.Entity<PastAchievement>(entity =>
@@ -197,7 +204,6 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.GivenBy)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
@@ -206,11 +212,20 @@ namespace SmaranAPI.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Title)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Type)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PastAchievements)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PastAchie__UserI__45F365D3");
             });
 
             modelBuilder.Entity<RecordMedicine>(entity =>
@@ -224,12 +239,10 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.MedicineDose)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MedicineName)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
@@ -237,9 +250,19 @@ namespace SmaranAPI.Models
                     .HasMaxLength(5000)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ScheduleTime)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RecordMedicines)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecordMed__UserI__48CFD27E");
             });
 
             modelBuilder.Entity<RecordMeeting>(entity =>
@@ -263,7 +286,6 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.MeetingTime).HasColumnType("datetime");
 
                 entity.Property(e => e.MeetingWith)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
@@ -274,6 +296,12 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RecordMeetings)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecordMee__UserI__4316F928");
             });
 
             modelBuilder.Entity<RecordVaccine>(entity =>
@@ -292,11 +320,17 @@ namespace SmaranAPI.Models
 
                 entity.Property(e => e.VaccineDetailId).HasColumnName("VaccineDetailID");
 
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RecordVaccines)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecordVac__UserI__34C8D9D1");
+
                 entity.HasOne(d => d.VaccineDetail)
                     .WithMany(p => p.RecordVaccines)
                     .HasForeignKey(d => d.VaccineDetailId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RecordVac__Vacci__32E0915F");
+                    .HasConstraintName("FK__RecordVac__Vacci__33D4B598");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -308,27 +342,22 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.FirstName)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.LastName)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Password)
-                    .IsRequired()
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Phone)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
             });
@@ -340,12 +369,10 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.SecurityAnswer)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SecurityQuestion)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
@@ -365,7 +392,6 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Age)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
             });
@@ -384,13 +410,13 @@ namespace SmaranAPI.Models
                     .WithMany(p => p.VaccineAgeMappings)
                     .HasForeignKey(d => d.VaccineAgeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__VaccineAg__Vacci__2F10007B");
+                    .HasConstraintName("FK__VaccineAg__Vacci__300424B4");
 
                 entity.HasOne(d => d.VaccineDose)
                     .WithMany(p => p.VaccineAgeMappings)
                     .HasForeignKey(d => d.VaccineDoseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__VaccineAg__Vacci__300424B4");
+                    .HasConstraintName("FK__VaccineAg__Vacci__30F848ED");
             });
 
             modelBuilder.Entity<VaccineDose>(entity =>
@@ -400,7 +426,6 @@ namespace SmaranAPI.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
             });

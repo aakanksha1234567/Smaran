@@ -6,13 +6,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.Models;
+using API.RequestModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmaranAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class FeedbacksController : ControllerBase
     {
         private readonly SmaranContext _context;
@@ -43,6 +44,13 @@ namespace SmaranAPI.Controllers
             }
 
             return feedback;
+        }
+
+        // GET: api/Feedbacks/User/5
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbacksByUser(int userId)
+        {
+            return await _context.Feedbacks.Where(a => a.UserId == userId).ToListAsync();
         }
 
         // PUT: api/Feedbacks/5

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.Models;
+using API.RequestModel;
+using API.RequestModel;
 
 namespace SmaranAPI
 {
@@ -18,6 +19,8 @@ namespace SmaranAPI
             CreateMap<RecordMeetingRequest, RecordMeeting>();
             CreateMap<PastAchievementRequest, PastAchievement>();
             CreateMap<RecordMedicineRequest, RecordMedicine>();
+            CreateMap<BudgetRequest, Budget>();
+            CreateMap<MedicalReportRequest, MedicalReport>();
             // Add other mappings here if needed
         }
     }

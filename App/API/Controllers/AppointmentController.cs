@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.Models;
+using API.RequestModel;
 
 namespace SmaranAPI.Controllers
 {
@@ -46,6 +46,13 @@ namespace SmaranAPI.Controllers
             return appointment;
         }
 
+        // GET: api/Appointment/User/5
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsByUser(int userId)
+        {
+            return await _context.Appointments.Where(a=>a.UserId == userId).ToListAsync();
+        }
+
         // PUT: api/Appointment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -54,8 +61,6 @@ namespace SmaranAPI.Controllers
             var appointment = _mapper.Map<Appointment>(appointmentRequest);
             appointment.Id = id;
             appointment.UpdateDate = DateTime.Now;
-
-            _context.Appointments.Add(appointment);
 
             _context.Entry(appointment).State = EntityState.Modified;
 

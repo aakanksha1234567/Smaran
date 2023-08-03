@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SmaranAPI.RequestModel
+namespace API.RequestModel
 {
     public class NoteRequest
     {
@@ -15,5 +15,6 @@ namespace SmaranAPI.RequestModel
         public string Title { get; set; }
         public string Notes { get; set; }
         public string Attachment { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -6,13 +6,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmaranAPI.Models;
-using SmaranAPI.RequestModel;
+using API.Models;
+using API.RequestModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmaranAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class NotesController : ControllerBase
     {
         private readonly SmaranContext _context;
@@ -43,6 +44,20 @@ namespace SmaranAPI.Controllers
             }
 
             return note;
+        }
+
+        // GET: api/Notes/5
+        [HttpGet("Type/{type}")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotes(string type)
+        {
+            return await _context.Notes.Where(n=>n.Type.ToLower() == type.ToLower().Trim()).ToListAsync();
+        }
+
+        // GET: api/Notes/User/5
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotesByUser(int userId)
+        {
+            return await _context.Notes.Where(a => a.UserId == userId).ToListAsync();
         }
 
         // PUT: api/Notes/5

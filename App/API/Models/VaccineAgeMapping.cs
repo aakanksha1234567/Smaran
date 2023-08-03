@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
-namespace SmaranAPI.Models
+namespace API.Models
 {
     public partial class VaccineAgeMapping
     {
@@ -16,8 +14,8 @@ namespace SmaranAPI.Models
         public int VaccineAgeId { get; set; }
         public int VaccineDoseId { get; set; }
 
-        public virtual VaccineAge VaccineAge { get; set; }
-        public virtual VaccineDose VaccineDose { get; set; }
+        public virtual VaccineAge VaccineAge { get; set; } = null!;
+        public virtual VaccineDose VaccineDose { get; set; } = null!;
         public virtual ICollection<RecordVaccine> RecordVaccines { get; set; }
     }
 }
