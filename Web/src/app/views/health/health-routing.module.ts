@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {RecordappointmentComponent} from './recordappointment/recordappointment.component';
 import {RecordhealthstateComponent} from './recordhealthstate/recordhealthstate.component';
 import {RecordmedicalreportComponent} from './recordmedicalreport/recordmedicalreport.component';
-import {RecordvaccineComponent} from './recordvaccine/recordvaccine.component';
 import {PastmedicalrecordsComponent} from './pastmedicalrecords/pastmedicalrecords.component';
 
 const routes: Routes = [{
@@ -25,13 +24,6 @@ const routes: Routes = [{
       }
     },
     {
-      path: 'recordhealthstate',
-      component: RecordhealthstateComponent,
-      data: {
-        title: 'Record Abnormal Health State'
-      }
-    },
-    {
       path: 'recordmedicalreport',
       component:RecordmedicalreportComponent,
       data: {
@@ -45,13 +37,6 @@ const routes: Routes = [{
         title: 'Past Medical Report'
       }
     },
-    {
-      path: 'recordvaccine',
-      component:RecordvaccineComponent,
-      data: {
-        title: 'Record Vaccine'
-      }
-    }
   ]
 }];
 

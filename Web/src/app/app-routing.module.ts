@@ -28,11 +28,6 @@ const routes: Routes = [
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
       {
-        path: 'manage-budget', canActivateChild: [AuthGuard],
-        loadChildren: () =>
-          import('./views/manage-budget/manage-budget.module').then((m) => m.ManageBudgetModule)
-      },
-      {
         path: 'medications', canActivateChild: [AuthGuard],
         loadChildren: () =>
           import('./views/medications/medications.module').then((m) => m.MedicationsModule)
@@ -46,11 +41,6 @@ const routes: Routes = [
         path: 'corporate', canActivateChild: [AuthGuard],
         loadChildren: () =>
           import('./views/corporate/corporate.module').then((m) => m.CorporateModule)
-      },
-      {
-        path: 'education', canActivateChild: [AuthGuard],
-        loadChildren: () =>
-          import('./views/education/education.module').then((m) => m.EducationModule)
       },
       {
         path: 'health', canActivateChild: [AuthGuard],

@@ -8,5 +8,8 @@ APIUrls {
     public static readonly RecordMedicine = "RecordMedicines";
     public static readonly Meetings = "RecordMeetings";
     public static readonly Achievements= "PastAchievements";
+    public static readonly Notes="Notes";
+    public static readonly MedicalReports="MedicalReports";
+    public static readonly ForgetPassword="User";
 
 }

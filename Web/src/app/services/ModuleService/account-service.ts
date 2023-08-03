@@ -6,9 +6,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { APIUrls } from '../../constants/api-urls';
 import { IBaseService } from '../ModuleInterfaces/IBase-service';
 import { IRegisterModel } from 'src/app/model/register-model';
+import { IUpdatePasswordRequestModel } from 'src/app/model/forgetpassword-model';
 
 @Injectable()
 export class AccountService extends IAccountService {
+    override forgetpassword(model: IUpdatePasswordRequestModel): Observable<any> {
+        return this.baseService.postRequest(APIUrls.ForgetPassword,model);
+    }
 
      constructor(private baseService: IBaseService) { 
         super();
