@@ -31,7 +31,7 @@ namespace API.Controllers
             }
 
             var retVal = _userService.Authenticate(user.UserName, user.Password);
-            if (retVal)
+            if (retVal.Item1)
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Model.ConfigurationManager.AppSetting["JWT:Secret"]));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -43,7 +43,7 @@ namespace API.Controllers
                     signingCredentials: signinCredentials
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Ok(new JWTTokenResponse { AccessToken = tokenString, Error = "" });
+                return Ok(new JWTTokenResponse { AccessToken = tokenString, ResponseData = retVal.Item2.ToString(), Error = "" });
             }
             return Unauthorized();
         }

@@ -8,4 +8,5 @@ export abstract class IAccountService{
     abstract register(model: IRegisterModel): Observable<any>; 
     abstract forgetpassword(model: IUpdatePasswordRequestModel): Observable<any>; 
 
+    abstract getNotifications(): Observable<any>;  
 }

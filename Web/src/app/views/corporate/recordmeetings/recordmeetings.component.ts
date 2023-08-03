@@ -22,8 +22,11 @@ export class RecordmeetingsComponent {
 });
 
 constructor(private MeetingService: IMeetingservices,private router: Router) { }
+
 onSubmit() {   
+  let userId = (Number)(localStorage.getItem('userId'));
   var model: IMeetingModel = {
+    UserId: userId,
     MeetingWith: this.meetingForm.value.MeetingWith ? this.meetingForm.value.MeetingWith : "",
     MeetingTime: this.meetingForm.value.MeetingTime ? this.meetingForm.value.MeetingTime : "",
     MeetingPlace: this.meetingForm.value.MeetingPlace ? this.meetingForm.value.MeetingPlace : "",
@@ -34,7 +37,7 @@ onSubmit() {
 
   this.MeetingService.meeting(model).subscribe((response: IMeetingResponse) => { 
     if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
-      swal.fire({title:"Meeting Recorded",timer:3000, toast: true,position: 'top-right',showCancelButton: true,showConfirmButton: true});  
+      swal.fire({title:"Meeting Recorded",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
 
     }
     else

@@ -10,6 +10,7 @@ export class RequestTokenInterceptor implements HttpInterceptor {
   constructor(private router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = localStorage.getItem('token');
+   
 
     request = request.clone({
       setHeaders: {
@@ -21,6 +22,7 @@ export class RequestTokenInterceptor implements HttpInterceptor {
       if (err.status === 401 || err.status === 403 || err.status === 400) {
         swal.fire({title:"Error While login! Please check user name and password",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
         localStorage.removeItem('token'); 
+        localStorage.removeItem('userId'); 
         this.router.navigate(["/login"]);
       }
 

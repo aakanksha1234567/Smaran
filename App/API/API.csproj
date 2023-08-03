@@ -25,4 +25,9 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\PDF\" />
+  </ItemGroup>
+
 </Project>
