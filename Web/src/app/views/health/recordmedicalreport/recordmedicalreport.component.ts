@@ -16,7 +16,7 @@ export class RecordmedicalreportComponent {
     GivenBy: new FormControl('',[Validators.required]),
     Attachment: new FormControl('',[Validators.required]),
     Title: new FormControl('',[Validators.required]),
-    Notes: new FormControl('',[Validators.required]),
+    Notes: new FormControl(''),
  
   }); 
   constructor(private MedicalReportservices: IMedicalReportservices,private router: Router) { }

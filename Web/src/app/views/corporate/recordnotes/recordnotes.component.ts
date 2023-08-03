@@ -24,10 +24,12 @@ export class RecordnotesComponent {
 
   onSubmit() {   
     var model: INoteModel = {
+      userId: 1,
       Subject: this.noteForm.value.Subject ? this.noteForm.value.Subject : "",
       Title: this.noteForm.value.Title ? this.noteForm.value.Title : "",
       Notes: this.noteForm.value.Notes ? this.noteForm.value.Notes: "",
       Attachment: this.noteForm.value.Attachment ? this.noteForm.value.Attachment : "",
+      Type: "UserNote"
     };  
 
     this.NoteService.note(model).subscribe((response: INoteResponse) => { 
