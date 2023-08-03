@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ResponseModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,6 +45,14 @@ namespace SmaranAPI.Controllers
         public User GetById(int id)
         {
             return _userService.GetById(id);
+        }
+
+        // GET api/<UserController>/5/Notifications
+        [Authorize]
+        [HttpGet("{id}/Notifications")]
+        public IEnumerable<NotificationResponse> GetUserNotifications(int id)
+        {
+            return _userService.GetNotifications(id);
         }
 
         // POST api/<UserController>

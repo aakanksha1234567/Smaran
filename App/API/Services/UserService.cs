@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ResponseModels;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace SmaranAPI.Services
 {
@@ -17,6 +20,7 @@ namespace SmaranAPI.Services
         User GetById(int id);
         ResponseObject Add(UserRequest userRequest);
         bool UpdatePassword(UpdatePasswordRequest updatePasswordRequest);
+        IList<NotificationResponse> GetNotifications(int userId);
     }
     public class UserService : IUserService
     {
@@ -155,6 +159,36 @@ namespace SmaranAPI.Services
             if (user != null)
                 retVal = true;
             return retVal;
+        }
+
+        public IList<NotificationResponse> GetNotifications(int userId)
+        {
+            var Notifications = new List<NotificationResponse>();
+
+            using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "GetNotifications";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@UserID", userId));
+
+                _dbContext.Database.OpenConnection();
+
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        Notifications.Add(
+                                new NotificationResponse()
+                                {
+                                    Description = result["Description"] == DBNull.Value ? "" : Convert.ToString(result["Description"]),
+                                    ScheduleTime = Convert.ToDateTime(result["ScheduleTime"])
+                                }
+                            );
+                    }
+                }
+            }
+
+            return Notifications;
         }
 
     }
