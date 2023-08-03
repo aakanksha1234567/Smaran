@@ -10,10 +10,6 @@ export const navItems: INavData[] = [
     name: 'Health'
   },
   {
-    name: 'Record Vaccination',
-     url: '/health/recordvaccine',
-  },
-  {
     name: 'Record Appointment',
     url: '/health/recordappointment',
     linkProps: { fragment: 'someAnchor' },
@@ -46,13 +42,7 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Corporate'
-  },
-  {
-    name: 'Record Tasks',
-    url: '/corporate/recordtasks',
-    linkProps: { fragment: 'someAnchor' },
-    
+    name: 'Utilites'
   },
   {
     name: 'Write Notes',

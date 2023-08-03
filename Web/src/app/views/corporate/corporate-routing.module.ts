@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {RecordachievementsComponent} from './recordachievements/recordachievements.component';
 import {RecordmeetingsComponent} from './recordmeetings/recordmeetings.component';
 import {RecordnotesComponent} from './recordnotes/recordnotes.component';
-import {RecordtasksComponent} from './recordtasks/recordtasks.component';
 import {PastnotesComponent} from './pastnotes/pastnotes.component';
 import {PastachievementsComponent} from './pastachievements/pastachievements.component';
 
@@ -53,13 +52,6 @@ const routes: Routes = [{
         title: 'Past Achievements'
       }
     },
-    {
-      path: 'recordtasks',
-      component: RecordtasksComponent,
-      data: {
-        title: 'Record tasks'
-      }
-    }
   ]
 }];
 @NgModule({
