@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SmaranAPI.RequestModel
+namespace API.RequestModel
 {
     public class UserRequest
     {
