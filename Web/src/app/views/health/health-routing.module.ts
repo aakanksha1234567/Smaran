@@ -25,13 +25,6 @@ const routes: Routes = [{
       }
     },
     {
-      path: 'recordhealthstate',
-      component: RecordhealthstateComponent,
-      data: {
-        title: 'Record Abnormal Health State'
-      }
-    },
-    {
       path: 'recordmedicalreport',
       component:RecordmedicalreportComponent,
       data: {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {RecordachievementsComponent} from './recordachievements/recordachievements.component';
-import {RecordeventsComponent} from './recordevents/recordevents.component';
 import {RecordmeetingsComponent} from './recordmeetings/recordmeetings.component';
 import {RecordnotesComponent} from './recordnotes/recordnotes.component';
 import {RecordtasksComponent} from './recordtasks/recordtasks.component';
@@ -24,13 +23,6 @@ const routes: Routes = [{
       component: RecordachievementsComponent,
       data: {
         title: 'Record achievements'
-      }
-    },
-    {
-      path: 'recordevents',
-      component: RecordeventsComponent,
-      data: {
-        title: 'Record Events'
       }
     },
     {
