@@ -15,7 +15,8 @@ export class FeedbackService extends IFeedbackservices {
         super();
      } 
 
-    feedback(model: IFeedbackModel): Observable<any> {  
-        return this.baseService.postRequest(APIUrls.Feedback,model);
+    feedback(model: IFeedbackModel,formData : any): Observable<any> {  
+        
+        return this.baseService.postRequest(APIUrls.Feedback,formData);
     } 
 }

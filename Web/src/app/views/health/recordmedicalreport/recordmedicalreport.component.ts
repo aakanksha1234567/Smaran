@@ -22,8 +22,10 @@ export class RecordmedicalreportComponent {
   constructor(private MedicalReportservices: IMedicalReportservices,private router: Router) { }
 
 
-  onSubmit() {   
+  onSubmit() {  
+    let userId = (Number)(localStorage.getItem('userId')); 
     var model: IMedicalReportModel = {
+      UserId: userId,
       Title: this.medicalreportForm.value.Title ? this.medicalreportForm.value.Title : "",
       Notes: this.medicalreportForm.value.Notes ? this.medicalreportForm.value.Notes : "",
       Attachment: this.medicalreportForm.value.Attachment ? this.medicalreportForm.value.Attachment : "",

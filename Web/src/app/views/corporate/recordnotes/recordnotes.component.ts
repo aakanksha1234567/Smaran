@@ -23,8 +23,9 @@ export class RecordnotesComponent {
 
 
   onSubmit() {   
+    let userId = (Number)(localStorage.getItem('userId'));
     var model: INoteModel = {
-      userId: 1,
+      UserId: userId,
       Subject: this.noteForm.value.Subject ? this.noteForm.value.Subject : "",
       Title: this.noteForm.value.Title ? this.noteForm.value.Title : "",
       Notes: this.noteForm.value.Notes ? this.noteForm.value.Notes: "",

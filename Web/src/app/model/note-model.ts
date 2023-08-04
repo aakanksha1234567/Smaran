@@ -1,5 +1,5 @@
 export interface INoteModel {
-    userId: number;
+    UserId: number;
     Subject : string;
     Title : string; 
     Notes : string;

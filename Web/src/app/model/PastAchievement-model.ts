@@ -3,4 +3,5 @@ export interface IPastAchievementModel {
     Title : string;
     Comment : string;
     Attachment : string;
+    UserId:number;
 }

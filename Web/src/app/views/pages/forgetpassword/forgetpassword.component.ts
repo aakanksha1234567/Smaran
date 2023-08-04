@@ -46,7 +46,7 @@ export class ForgetpasswordComponent {
     this.selectedValue=e.target.value;
   }
   onSubmit(){    
-
+    console.log("submiiittt");
     if(this.forgetpasswordForm.value.Password!=this.forgetpasswordForm.value.repeatPassword){  
       swal.fire("Password and ConfirmPassword Does not match!"); 
       return;
@@ -56,7 +56,7 @@ export class ForgetpasswordComponent {
 
      var model: IUpdatePasswordRequestModel = {
        Email: this.forgetpasswordForm.value.Email ??"",
-       SecurityQas: this.modelSecurityQas,
+       SecurityQuestion: this.selectedValue,
        SecurityAnswer: this.forgetpasswordForm.value.SecurityAnswer ??"",
        Password: this.forgetpasswordForm.value.Password ??"",
      };  

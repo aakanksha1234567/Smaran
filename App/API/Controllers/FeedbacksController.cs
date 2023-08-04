@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
 using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using Newtonsoft.Json;
 
 namespace SmaranAPI.Controllers
 {
@@ -85,15 +87,30 @@ namespace SmaranAPI.Controllers
         // POST: api/Feedbacks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Feedback>> PostFeedback(FeedbackRequest feedbackRequest)
+        public async Task<ActionResult<ResponseObject>> PostFeedback()
         {
-            var feedback = _mapper.Map<Feedback>(feedbackRequest);
-            feedback.CreatedDate = DateTime.Now;
+            try
+            {
+                // Get For Collection from frontend
+                var formCollection = await Request.ReadFormAsync();
+                var getModels = formCollection["FeedbackRequest"];
 
-            _context.Feedbacks.Add(feedback);
-            await _context.SaveChangesAsync();
+                // upload file funcationality
+                var fileName = await FileUploadService.Upload(formCollection);
 
-            return CreatedAtAction("GetFeedback", new { id = feedback.Id }, feedback);
+                var modelData = JsonConvert.DeserializeObject<FeedbackRequest>(getModels);
+                var feedback = _mapper.Map<Feedback>(modelData);
+                feedback.CreatedDate = DateTime.Now;
+                feedback.Attachment = fileName;
+                feedback.CreatedDate = DateTime.Now;
+                await _context.SaveChangesAsync();
+
+                return new ResponseObject() { Data = feedback.Id };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject() { Error = ex.Message }; ;
+            }
         }
 
         // DELETE: api/Feedbacks/5

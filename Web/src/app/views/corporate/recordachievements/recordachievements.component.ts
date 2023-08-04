@@ -23,7 +23,9 @@ constructor(private pastachievementservice: IPastAchievementService,private rout
  }
 
 onSubmit() {   
+  let userId = (Number)(localStorage.getItem('userId'));
   var model: IPastAchievementModel = {
+    UserId: userId,
     GivenBy: this.recordAchievementForm.value.GivenBy ? this.recordAchievementForm.value.GivenBy : "",
     Title: this.recordAchievementForm.value.Title ? this.recordAchievementForm.value.Title : "",
     Comment: this.recordAchievementForm.value.Comment ? this.recordAchievementForm.value.Comment : "",

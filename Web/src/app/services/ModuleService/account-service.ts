@@ -11,7 +11,8 @@ import { IUpdatePasswordRequestModel } from 'src/app/model/forgetpassword-model'
 @Injectable()
 export class AccountService extends IAccountService {
     override forgetpassword(model: IUpdatePasswordRequestModel): Observable<any> {
-        return this.baseService.postRequest(APIUrls.ForgetPassword,model);
+        console.log(APIUrls.ForgetPassword+model.Email);
+        return this.baseService.putRequest(APIUrls.ForgetPassword+model.Email,model);
     }
 
      constructor(private baseService: IBaseService) { 
