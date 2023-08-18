@@ -29,7 +29,11 @@
                 <td>{{appointmentResponses.appointmentAt}}</td>
                 <td>{{appointmentResponses.appointmentTime}}</td>
                 <td>{{appointmentResponses.appointmentNotes}}</td> 
-                <td><a target="_blank" href="http://localhost:8050/Resources/Images/{{appointmentResponses.appointmentAttachment}}"> <img style="width: 100px;" src="http://localhost:8050/Resources/Images/{{appointmentResponses.appointmentAttachment}}" /> </a></td>
+                <td>
+                    <a target="_blank" href="http://localhost:8050/Resources/Images/{{appointmentResponses.appointmentAttachment}}" *ngIf="appointmentResponses.appointmentAttachment.indexOf('.pdf') > -1"> 
+                    <span >Select to open pdf</span> </a>
+                    <a target="_blank" href="http://localhost:8050/Resources/Images/{{appointmentResponses.appointmentAttachment}}" *ngIf="appointmentResponses.appointmentAttachment.indexOf('.pdf') == -1">  
+                        <img style="width: 100px;" src="http://localhost:8050/Resources/Images/{{appointmentResponses.appointmentAttachment}}" /> </a></td>
                 <td>
                     <button class="btn btn-warning" (click) = "onUpdate(appointmentResponses)">Edit</button>
                     <button class="btn btn-danger padleft10" (click) = "onDelete(appointmentResponses)">Delete</button>
