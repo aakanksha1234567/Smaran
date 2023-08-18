@@ -13,11 +13,17 @@ import { IMedicalReportservices } from '../ModuleInterfaces/IMedicalReport-servi
 
 @Injectable()
 export class MedicalReportservices extends IMedicalReportservices {
-    override medicalreport(model: IMedicalReportModel): Observable<any> {
-        return this.baseService.postRequest(APIUrls.MedicalReports,model);
-    }
 
      constructor(private baseService: IBaseService) { 
         super();
      } 
+
+     override medicalreport(model: IMedicalReportModel): Observable<any> {
+        return this.baseService.postRequest(APIUrls.MedicalReports,model);
+    }
+
+    override getMedicalreport(): Observable<any> {
+        return this.baseService.getRequest(APIUrls.MedicalReports);
+    }
+
 }

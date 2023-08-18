@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {RecordappointmentComponent} from './recordappointment/recordappointment.component';
-import {RecordhealthstateComponent} from './recordhealthstate/recordhealthstate.component';
 import {RecordmedicalreportComponent} from './recordmedicalreport/recordmedicalreport.component';
 import {PastmedicalrecordsComponent} from './pastmedicalrecords/pastmedicalrecords.component';
 
