@@ -64,10 +64,14 @@ namespace SmaranAPI.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("UpdatePassword/{email}")]
-        public bool Put(string email, [FromBody] UpdatePasswordRequest updatePasswordRequest)
+        public ResponseObject Put(string email, [FromBody] UpdatePasswordRequest updatePasswordRequest)
         {
             updatePasswordRequest.Email = email;
-            return _userService.UpdatePassword(updatePasswordRequest);
+            var data = _userService.UpdatePassword(updatePasswordRequest);
+            if(data)
+                return new ResponseObject() { Error = null };
+            else
+                return new ResponseObject() { Error = "error while authnticate and update user" };
         }
     }
 }
