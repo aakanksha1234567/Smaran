@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "J4XbLti+W+AvaDy/8MSdA8YQSKRIoCydlG1QNc/2axj1MfeUbZv5iAiglc5MFnIhSvIQ/vkVG47nnqHCQLzPFw==",
+  "dgSpecHash": "k53ny3XNjmq44FxT4uhTkfSOrQI1C3653KmpqGvy2xbN81s2y0caUm4zk4ArzjsSZS8MD63M0bXNjSPOFTUp9A==",
   "success": true,
   "projectFilePath": "D:\\Projects\\Inhouse Project\\Code\\Smaran\\App\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.6\\microsoft.entityframeworkcore.design.6.0.6.nupkg.sha512",
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.6\\microsoft.entityframeworkcore.relational.6.0.6.nupkg.sha512",
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.6\\microsoft.entityframeworkcore.sqlserver.6.0.6.nupkg.sha512",
+    "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.6\\microsoft.entityframeworkcore.tools.6.0.6.nupkg.sha512",
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\vivek.parekh\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",

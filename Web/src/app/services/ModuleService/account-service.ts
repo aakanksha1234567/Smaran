@@ -10,10 +10,7 @@ import { IUpdatePasswordRequestModel } from 'src/app/model/forgetpassword-model'
 
 @Injectable()
 export class AccountService extends IAccountService {
-    override forgetpassword(model: IUpdatePasswordRequestModel): Observable<any> {
-        console.log(APIUrls.ForgetPassword+model.Email);
-        return this.baseService.putRequest(APIUrls.ForgetPassword+model.Email,model);
-    }
+    
 
      constructor(private baseService: IBaseService) { 
         super();
@@ -31,4 +28,8 @@ export class AccountService extends IAccountService {
         let userId = (Number)(localStorage.getItem('userId')); 
         return this.baseService.getRequest(APIUrls.GetNotification+userId);
     } 
+
+    forgetpassword(model: IUpdatePasswordRequestModel) {  
+        return this.baseService.putRequest<Observable<any>>(APIUrls.ForgetPassword+model.Email,model); 
+    }
 }

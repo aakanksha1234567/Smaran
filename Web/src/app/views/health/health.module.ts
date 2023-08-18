@@ -6,18 +6,21 @@ import { RecordappointmentComponent } from './recordappointment/recordappointmen
 import { RecordmedicalreportComponent } from './recordmedicalreport/recordmedicalreport.component';
 import { PastmedicalrecordsComponent } from './pastmedicalrecords/pastmedicalrecords.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { PastappointmentrecordsComponent } from './pastappointmentrecords/pastappointmentrecords.component'; 
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
     RecordappointmentComponent,
     RecordmedicalreportComponent,
-    PastmedicalrecordsComponent
+    PastmedicalrecordsComponent,
+    PastappointmentrecordsComponent
   ],
   imports: [
     CommonModule,
     HealthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ]
 })
 export class HealthModule { }
