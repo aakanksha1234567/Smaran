@@ -26,7 +26,12 @@
                 <input class="form-control" type="file" id="formFileMultiple"  formControlName="appointmentAttachment" (change)="handleFileInput($any($event.target).files)" style="width:90%; float: left;">
                 <p class="airstrike">*</p>
                 <div *ngIf="idData">
-                    <img src="http://localhost:8050/Resources/Images/{{existingImage}}" width="250px" > 
+                    <div  *ngIf="showImage">
+                        <img src="http://localhost:8050/Resources/Images/{{existingImage}}" width="250px" > 
+                    </div> 
+                    <div  *ngIf="!showImage">
+                        <a href="http://localhost:8050/Resources/Images/{{existingImage}}"  target="_blank" width="250px">showPDF</a> 
+                    </div> 
             </div>
             </div> 
         </div>

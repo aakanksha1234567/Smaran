@@ -173,7 +173,6 @@ CREATE TABLE [dbo].[RecordMedicine]
     FOREIGN KEY (UserID) REFERENCES [user](ID)
 )
 
-
 GO
 /****** Object:  StoredProcedure [dbo].[GetNotifications]    Script Date: 18-08-2023 20:21:52 ******/
 SET ANSI_NULLS ON
@@ -198,7 +197,7 @@ BEGIN
 	
 	SELECT 2 As TypeOfMeeting,
 		'You have an meeting - ' + Notes + ' with ' + MeetingWith + ' at ' + MeetingPlace + ' on ' + Format(MeetingTime, 'dd/MM/yyyy hh:mm') As [Description],
-		 MeetingTime As [ScheduleTime],AppointmentAttachment As FileAttachment
+		 MeetingTime As [ScheduleTime],Attachment As FileAttachment
 	FROM RecordMeetings 
 	WHERE UserID = @UserID
 		AND MeetingTime > GETDATE()

@@ -103,6 +103,7 @@ namespace SmaranAPI.Controllers
                 feedback.CreatedDate = DateTime.Now;
                 feedback.Attachment = fileName;
                 feedback.CreatedDate = DateTime.Now;
+                _context.Feedbacks.Add(feedback);
                 await _context.SaveChangesAsync();
 
                 return new ResponseObject() { Data = feedback.Id };

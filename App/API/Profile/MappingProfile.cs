@@ -2,6 +2,7 @@
 using API.Models;
 using API.RequestModel;
 using API.RequestModel;
+using SmaranAPI.Controllers;
 
 namespace SmaranAPI
 {
@@ -15,6 +16,7 @@ namespace SmaranAPI
             CreateMap<RecordMeetingRequest, RecordMeeting>();
             CreateMap<RecordMedicineRequest, RecordMedicine>();
             CreateMap<MedicalReportRequest, MedicalReport>();
+            CreateMap<MeetingRequest, RecordMeeting>();
             // Add other mappings here if needed
         }
     }

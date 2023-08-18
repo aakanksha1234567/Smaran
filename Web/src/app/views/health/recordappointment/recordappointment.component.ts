@@ -23,6 +23,7 @@ export class RecordappointmentComponent {
   uploadfilesData: any;
   idData:boolean=false;
   existingImage:string ="";
+  showImage : boolean =false;
 
   appointmentForm = new FormGroup({
     appointmentAt: new FormControl('',[Validators.required]),
@@ -40,6 +41,7 @@ constructor(private appointmentService : IAppointmentService,private route: Acti
   const id = this.route.snapshot.queryParamMap.get('id');  
   if (id!=null) {
     this.idData = true;
+
       // to do code for edit 
       this.SetValueOnLoad(id); 
   }
@@ -62,6 +64,8 @@ SetValueOnLoad(id:any){
     console.log(response,"response");
  
     this.existingImage = response.appointmentAttachment
+
+    this.showImage = this.existingImage.indexOf(".pdf") == -1
 
     this.appointmentForm.setValue({
       appointmentAt: response.appointmentAt, 
