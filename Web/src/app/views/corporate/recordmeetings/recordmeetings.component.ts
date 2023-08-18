@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { IMeetingModel } from 'src/app/model/meeting';
 import { IMeetingservices } from 'src/app/services/ModuleInterfaces/IMeeting-services';
 import swal from 'sweetalert2';
@@ -12,37 +11,78 @@ import {IMeetingResponse} from 'src/app/model/meeting-response';
   styleUrls: ['./recordmeetings.component.scss']
 })
 export class RecordmeetingsComponent {
+  working = false;
+  uploadFile: File | null; 
+  uploadFileLabel: string | undefined = 'Choose an image to upload';
+  uploadProgress: number;
+  uploadUrl: string;
+  uploadFileName: string;
+  uploadFileContent:string; 
+  uploadfilesData: any;
+
   meetingForm = new FormGroup({
     MeetingWith: new FormControl('',[Validators.required]),
-    MeetingTime: new FormControl('',[Validators.required]),
+    MeetingTime: new FormControl(new Date(),[Validators.required]),
     MeetingPlace:new FormControl('',[Validators.required]),
     Notes :new FormControl('',[Validators.required]),
     Link : new FormControl('',[Validators.required]),
     Attachment : new FormControl('',[Validators.required]),
 });
 
-constructor(private MeetingService: IMeetingservices,private router: Router) { }
+constructor(private MeetingService: IMeetingservices){
+  this.uploadFile = null;
+  this.uploadProgress =0;
+  this.uploadUrl ='';
+  this.uploadFileName ='';
+  this.uploadFileContent ='';   
+ }
+ handleFileInput(uploadfiles: FileList) {  
+  this.uploadfilesData = uploadfiles  
+  for (let index = 0; index < this.uploadfilesData.length; index++) {
+    const element = this.uploadfilesData[index];  
+    if(element.type !== "image/png" && element.type !== "image/jpg" && element.type !== "image/jpeg" && element.type !== "application/pdf" ){
+      swal.fire({title:"File type must be png, jpg, jpeg or pdf.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});     
+    }
+  }       
+}
 
 onSubmit() {   
+  if (this.uploadfilesData.length==0) {
+    swal.fire({title:"Choose file to upload.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});    
+    return;   
+  }
+     
+  let formData = new FormData();
+
+  for (let index = 0; index < this.uploadfilesData.length; index++) {
+    const element = this.uploadfilesData[index];
+    if(element.type !== "image/png" && element.type !== "image/jpg" && element.type !== "image/jpeg" && element.type !== "application/pdf" ){
+      swal.fire({title:"File type must be png, jpg, jpeg or pdf.", timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});     
+      return;
+    }
+    formData.append(element.name, element); 
+    console.log(element);
+  }  
   let userId = (Number)(localStorage.getItem('userId'));
   var model: IMeetingModel = {
     UserId: userId,
-    MeetingWith: this.meetingForm.value.MeetingWith ? this.meetingForm.value.MeetingWith : "",
-    MeetingTime: this.meetingForm.value.MeetingTime ? this.meetingForm.value.MeetingTime : "",
-    MeetingPlace: this.meetingForm.value.MeetingPlace ? this.meetingForm.value.MeetingPlace : "",
-    Notes: this.meetingForm.value.MeetingPlace ? this.meetingForm.value.MeetingPlace : "",
-    Attachment: this.meetingForm.value.Attachment ? this.meetingForm.value.Attachment : "",
-    Link: this.meetingForm.value.Link ? this.meetingForm.value.Link : "",
+    MeetingWith: this.meetingForm.value.MeetingWith ??"",
+    MeetingTime: this.meetingForm.value.MeetingTime ? this.meetingForm.value.MeetingTime : new Date(),
+    MeetingPlace: this.meetingForm.value.MeetingPlace ??"",
+    Notes: this.meetingForm.value.MeetingPlace ??"",
+    Attachment: this.meetingForm.value.Attachment ??"",
+    Link: this.meetingForm.value.Link ??"",
   };  
 
-  this.MeetingService.meeting(model).subscribe((response: IMeetingResponse) => { 
+  formData.append("MeetingRequest",JSON.stringify(model))
+  this.MeetingService.meeting(model,formData).subscribe((response: any) => { 
     if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
-      swal.fire({title:"Meeting Recorded",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
-
+      
+      swal.fire({title:"Meeting Recorded",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "success"});  
     }
     else
     {
-      alert("meeting error");
+      swal.fire({title:"Meeting error.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});    
     } 
   }); 
 }

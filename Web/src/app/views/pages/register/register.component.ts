@@ -20,8 +20,8 @@ export class RegisterComponent {
   modelSecurityQas : ISecurityQaModel []=[];
   listOfQuestions : DropDownDto<string> []=[]
   registerForm = new FormGroup({
-    firstName: new FormControl('',[Validators.required]),
-    lastName: new FormControl('',[Validators.required]),
+    firstName: new FormControl('',[Validators.pattern('[A-Za-z]'),Validators.required,Validators.maxLength(30)]),
+    lastName: new FormControl('',[Validators.pattern('[A-Za-z]'),Validators.required,Validators.maxLength(30)]),
     pohoneNumber: new FormControl('',[Validators.pattern('^[1-9][0-9]+$'),Validators.required,Validators.minLength(10),Validators.maxLength(11)]),
     email: new FormControl('',[Validators.email,Validators.required]), 
     answerOne: new FormControl('',[Validators.required]), 

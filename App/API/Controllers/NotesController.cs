@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
 using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace SmaranAPI.Controllers
 {
@@ -23,6 +26,7 @@ namespace SmaranAPI.Controllers
         {
             _context = context;
             _mapper = mapper;
+            
         }
 
         // GET: api/Notes
@@ -93,30 +97,35 @@ namespace SmaranAPI.Controllers
         // POST: api/Notes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Note>> PostNote(NoteRequest noteRequest)
+        public async Task<ActionResult<ResponseObject>> PostNote()
         {
-            var note = _mapper.Map<Note>(noteRequest);
-            note.UpdatedDate = DateTime.Now;
-            note.CreatedDate = DateTime.Now;
-
-            _context.Notes.Add(note);
             try
             {
+                // Get For Collection from frontend
+                var formCollection = await Request.ReadFormAsync();
+                var getModels = formCollection["NoteRequest"];
+
+                // upload file funcationality
+                var fileName = await FileUploadService.Upload(formCollection);
+
+                var modelData = JsonConvert.DeserializeObject<NoteRequest>(getModels);
+                var note = _mapper.Map<Note>(modelData);
+            note.UpdatedDate = DateTime.Now;
+            note.CreatedDate = DateTime.Now;
+                note.Attachment = fileName;
+
+            _context.Notes.Add(note);
                 await _context.SaveChangesAsync();
+
+                return new ResponseObject() { Data = note.Id };
+               
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-                if (NoteExists(note.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return new ResponseObject() { Error = ex.Message }; ;
             }
 
-            return CreatedAtAction("GetNote", new { id = note.Id }, note);
+        
         }
 
         // DELETE: api/Notes/5

@@ -6,31 +6,23 @@
         <th scope="col">Medicine Mg</th>
         <th scope="col">From Date</th>
         <th scope="col">To Date</th>
+        <th scope="col">Scheduled Time</th>
         <th scope="col">Medicine Dose(Repeated)</th>
         <th scope="col">Medicine Duration(in days)</th>
         <th scope="col">Medical Reaction</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Paracetamol</td>
-        <td>250</td>
+      <tr  *ngFor="let lst of medicinerecordResponses">
+        <td>{{(lst.id)}}</td>
+        <td>{{lst.medicineName}}</td>
+        <td>{{lst.medicineMg}}</td>
         <td>16/6/23</td>
         <td>19/6/23</td>
-        <td>Everyday</td>
-        <td>3</td>
-        <td>None</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Paracetamol</td>
-        <td>500</td>
-        <td>16/7/23</td>
-        <td>18/7/23</td>
-        <td>Everyday</td>
-        <td>2</td>
-        <td>Rashes</td>
+        <td>{{lst.scheduleTime}}</td>
+        <td>{{lst.medicineDose}}</td>
+        <td>{{lst.medicineDuration}}</td>
+        <td>{{lst.medicineReaction}}</td>
       </tr>
     </tbody>
   </table>

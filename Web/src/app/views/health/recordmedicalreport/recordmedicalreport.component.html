@@ -1,4 +1,4 @@
-<form cForm [formGroup]="medicalreportForm" (ngSubmit)="onSubmit()" autocomplete="off">
+<form  [formGroup]="medicalreportForm" (ngSubmit)="onSubmit()" autocomplete="off">
 <div class="row align-items-start">
     <div class="col">
       <div class="form-group">
@@ -14,7 +14,7 @@
     <div class="col">
             <label for="Inputmeetingattachment">Upload attachments(in pdf/jpeg etc format):</label>
             <div class="mb-3">
-                <input formControlName="Attachment" class="form-control" type="file" id="formFileMultiple" multiple>
+                <input formControlName="Attachment" class="form-control" type="file" id="formFileMultiple"  (change)="handleFileInput($any($event.target).files)">
             </div>
     </div>
 </div><br><br>
@@ -22,7 +22,7 @@
 <div class="row">
         <label for="Inputnotes">Enter comments:</label>
         <div class="form-floating">
-            <textarea formControlName="Notes" class="form-control" placeholder="comments:" id="floatingTextarea2" style="height: 100px"></textarea>
+            <textarea formControlName="Comments" class="form-control" placeholder="comments:" id="floatingTextarea2" style="height: 100px"></textarea>
         </div>
 </div><br>
 <div class="row">

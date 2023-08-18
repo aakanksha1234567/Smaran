@@ -47,8 +47,9 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Corporate'
+    name: 'Utilities'
   },
+ 
   {
     name: 'Write Notes',
     url: '/corporate/recordnotes',
@@ -64,18 +65,6 @@ export const navItems: INavData[] = [
   {
     name: 'Record Meetings',
     url: '/corporate/recordmeetings',
-    linkProps: { fragment: 'someAnchor' },
-    
-  },
-  {
-    name: 'Store Achievements',
-    url: '/corporate/recordachievements',
-    linkProps: { fragment: 'someAnchor' },
-    
-  },
-  {
-    name: 'Past Achievements',
-    url: '/corporate/pastachievements',
     linkProps: { fragment: 'someAnchor' },
     
   },

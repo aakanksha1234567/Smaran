@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {RecordachievementsComponent} from './recordachievements/recordachievements.component';
 import {RecordmeetingsComponent} from './recordmeetings/recordmeetings.component';
 import {RecordnotesComponent} from './recordnotes/recordnotes.component';
 import {PastnotesComponent} from './pastnotes/pastnotes.component';
-import {PastachievementsComponent} from './pastachievements/pastachievements.component';
+import { RouterModule, Routes } from '@angular/router';
+
+
 
 const routes: Routes = [{
   path: '',
@@ -17,13 +17,7 @@ const routes: Routes = [{
       pathMatch: 'full',
       redirectTo: 'recordtasks'
     },
-    {
-      path: 'recordachievements',
-      component: RecordachievementsComponent,
-      data: {
-        title: 'Record achievements'
-      }
-    },
+    
     {
       path: 'recordmeetings',
       component: RecordmeetingsComponent,
@@ -43,13 +37,6 @@ const routes: Routes = [{
       component: PastnotesComponent,
       data: {
         title: 'Past Notes Record'
-      }
-    },
-    {
-      path: 'pastachievements',
-      component: PastachievementsComponent,
-      data: {
-        title: 'Past Achievements'
       }
     },
   ]

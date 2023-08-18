@@ -1,7 +1,7 @@
 export interface IMedicalReportModel {
     GivenBy : string
     Title : string
-    Notes : string
+    Comments : string
     Attachment : string 
     UserId:number
 }

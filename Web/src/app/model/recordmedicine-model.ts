@@ -5,4 +5,5 @@ export interface IRecordMedicineModel {
     MedicineDose : string;
     MedicineReaction : string;
     MedicineDuration : number; 
+    ScheduleTime : string;
 }

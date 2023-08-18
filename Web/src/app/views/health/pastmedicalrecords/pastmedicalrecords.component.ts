@@ -19,6 +19,7 @@ export class PastmedicalrecordsComponent {
       
       this.medicalrecordResponses = response;
       
+      
       console.log(response)
   })
     

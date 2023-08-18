@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
 using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using Newtonsoft.Json;
 
 namespace SmaranAPI.Controllers
 {
@@ -86,16 +88,30 @@ namespace SmaranAPI.Controllers
         // POST: api/RecordMeetings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<RecordMeeting>> PostRecordMeeting(RecordMeetingRequest recordMeetingRequest)
+        public async Task<ActionResult<ResponseObject>> PostRecordMeeting()
         {
-            var recordMeeting = _mapper.Map<RecordMeeting>(recordMeetingRequest);
+            try
+            {
+                // Get For Collection from frontend
+                var formCollection = await Request.ReadFormAsync();
+                var getModels = formCollection["MeetingRequest"];
+
+                // upload file funcationality
+                var fileName = await FileUploadService.Upload(formCollection);
+
+                var modelData = JsonConvert.DeserializeObject<MeetingRequest>(getModels);
+                var recordMeeting = _mapper.Map<RecordMeeting>(modelData);
             recordMeeting.CreatedDate = DateTime.Now;
             recordMeeting.UpdatedDate = DateTime.Now;
-
+                recordMeeting.Attachment = fileName;
             _context.RecordMeetings.Add(recordMeeting);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRecordMeeting", new { id = recordMeeting.Id }, recordMeeting);
+                return new ResponseObject() { Data = recordMeeting.Id };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject() { Error = ex.Message }; ;
+            }
         }
 
         // DELETE: api/RecordMeetings/5
