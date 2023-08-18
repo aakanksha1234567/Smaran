@@ -52,7 +52,7 @@ namespace SmaranAPI.Controllers
         [HttpGet("User/{userId}")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsByUser(int userId)
         {
-            return await _context.Appointments.Where(a=>a.UserId == userId).ToListAsync();
+            return await _context.Appointments.Where(a=>a.UserId == userId && a.IsActive==true).ToListAsync();
         }
 
         // PUT: api/Appointment/5
@@ -104,6 +104,7 @@ namespace SmaranAPI.Controllers
                 appointment.CreatedDate = DateTime.Now;
                 appointment.UpdateDate = DateTime.Now;
                 appointment.AppointmentAttachment = fileName;
+                appointment.IsActive = true;
                 _context.Appointments.Add(appointment);
                 await _context.SaveChangesAsync();
                  
@@ -117,18 +118,25 @@ namespace SmaranAPI.Controllers
 
         // DELETE: api/Appointment/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAppointment(int id)
+        public async Task<ResponseObject> DeleteAppointment(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment == null)
+            try
             {
-                return NotFound();
+                var appointment = await _context.Appointments.FindAsync(id);
+                if (appointment == null)
+                {
+                    return new ResponseObject() { Error = "error while delete appointment" };
+                }
+
+                appointment.IsActive = false; 
+                _context.Entry(appointment).State = EntityState.Modified;
+                await _context.SaveChangesAsync(); 
+                return new ResponseObject() { Error = null };
             }
-
-            _context.Appointments.Remove(appointment);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return new ResponseObject() { Error = "error while delete appointment" };
+            } 
         }
 
         private bool AppointmentExists(int id)

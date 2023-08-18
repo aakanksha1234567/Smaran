@@ -16,6 +16,10 @@ export const navItems: INavData[] = [
     linkProps: { fragment: 'someAnchor' },
   },
   {
+    name: 'Past Appointment Records',
+    url: '/health/pastappointmentrecords',
+  },
+  {
     name: 'Store Medical Report',
     url: '/health/recordmedicalreport',
     linkProps: { fragment: 'someAnchor' },

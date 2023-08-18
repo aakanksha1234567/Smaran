@@ -21,19 +21,19 @@ export class AppointmentService extends IAppointmentService {
         let obj = {
           model : model,
           file : file
-        }    
-      //   let headers: HttpHeaders = new HttpHeaders(
-      //     {
-      //         //'Content-Type': 'application/x-www-form-urlencoded'
-      //         'Content-Type': 'application/json'
-      //     }); 
-        //let retVal = this.baseService.postRequestWithHeader(APIUrls.Appointment,file,headers);
-        let retVal = this.baseService.postRequest(APIUrls.Appointment,file);
-
-      //   let localbaseUrl = "http://localhost:4200/assets/systemImages/";
-      //  const upload$ = this.http.post(localbaseUrl, file);  
-      //  upload$.subscribe();
+        }     
+        let retVal = this.baseService.postRequest(APIUrls.Appointment,file); 
         return retVal;
     } 
+
+    getAppointments(): Observable<any> { 
+      let userId = (Number)(localStorage.getItem('userId')); 
+      return this.baseService.getRequest(APIUrls.GetAppointments+userId);
+  } 
+
+  deleteAppointment(id:any): Observable<any> { 
+    let userId = (Number)(localStorage.getItem('userId')); 
+    return this.baseService.deleteRequest(APIUrls.DeleteAppointments+id);
+} 
  
 }

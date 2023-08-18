@@ -13,7 +13,7 @@ namespace API.Models
         public DateTime UpdateDate { get; set; }
         public DateTime AppointmentTime { get; set; }
         public DateTime CreatedDate { get; set; }
-
+        public bool IsActive { get; set; }
         public virtual User User { get; set; } = null!;
     }
 }

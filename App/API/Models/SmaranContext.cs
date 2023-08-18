@@ -50,6 +50,9 @@ namespace API.Models
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
+                entity.Property(e => e.IsActive) 
+                  .IsUnicode(false);
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.User)

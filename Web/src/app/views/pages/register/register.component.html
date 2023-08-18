@@ -8,25 +8,52 @@
               <h1>Register</h1>
               <p class="text-medium-emphasis">Create your account</p>
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="First Name" formControlName="firstName"/>
+                <input  cFormControl placeholder="First Name" formControlName="firstName" required/> <p class="airstrike">*</p>
+                <label *ngIf="FC['firstName'].invalid && (FC['firstName'].dirty || FC['firstName'].touched)" class="validationRed">
+                  <p *ngIf="FC['firstName']?.errors?.required" >
+                    First Name is Required
+                  </p>
+                </label> 
               </c-input-group>
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="Last Name" formControlName="lastName"/>
+                <input  cFormControl placeholder="Last Name" formControlName="lastName" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['lastName'].invalid && (FC['lastName'].dirty || FC['lastName'].touched)" class="validationRed">
+                  <p *ngIf="FC['lastName']?.errors?.required" >
+                    Last Name is Required
+                  </p>
+                </label> 
               </c-input-group>
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="Phone Number" formControlName="pohoneNumber"/>
+                <input  cFormControl placeholder="Phone Number" formControlName="pohoneNumber" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['pohoneNumber'].invalid && (FC['pohoneNumber'].dirty || FC['pohoneNumber'].touched)" class="validationRed">
+                  <p *ngIf="FC['pohoneNumber']?.errors?.required" >
+                    Phone Number is Required
+                  </p>
+                </label> 
               </c-input-group> 
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="Email" formControlName="email"/>
+                <input  cFormControl placeholder="Email" formControlName="email" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['email'].invalid && (FC['email'].dirty || FC['email'].touched)" class="validationRed">
+                  <p *ngIf="FC['email']?.errors?.required" >
+                    Email is Required
+                  </p>
+                </label> 
               </c-input-group>
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="Password" type="password" formControlName="password"/>
+                <input  cFormControl placeholder="Password" type="password" formControlName="password" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['password'].invalid && (FC['password'].dirty || FC['password'].touched)" class="validationRed">
+                  <p *ngIf="FC['password']?.errors?.required" >
+                    Password is Required
+                  </p>
+                </label> 
               </c-input-group>
               <c-input-group class="mb-4"> 
-                <input  cFormControl placeholder="Repeat password" type="password" formControlName="repeatPassword"/>
-                <div class="error-message" *ngIf="registerForm.errors?.['PasswordNoMatch']">
-                  Password does'nt match.
-                </div>
+                <input  cFormControl placeholder="Repeat password" type="password" formControlName="repeatPassword" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['repeatPassword'].invalid && (FC['repeatPassword'].dirty || FC['repeatPassword'].touched)" class="validationRed">
+                  <p *ngIf="FC['repeatPassword']?.errors?.required" >
+                    Repeat password is Required
+                  </p>
+                </label> 
               </c-input-group>
               <c-input-group class="mb-3"> 
                 <label class="form-label" for="form3Example1cg"><b>Register for</b></label>
@@ -37,14 +64,19 @@
               </c-input-group>
               <br/> 
               <c-input-group  class="mb-3">  
-                <select #questions (change)="changeFn($event)" style="width: 100%; height: 40px; border: 1px solid lightgray;">  
+                <select #questions (change)="changeFn($event)" style="width: 96%; height: 40px; border: 1px solid lightgray;">  
                   <option *ngFor="let lst of listOfQuestions" [value]="lst.Value">  
                       {{lst.Name}}
                   </option>
                 </select>  
               </c-input-group>
               <c-input-group class="mb-3"> 
-                <input  cFormControl placeholder="Answer" formControlName="answerOne"/>
+                <input  cFormControl placeholder="Answer" formControlName="answerOne" required/>  <p class="airstrike">*</p>
+                <label *ngIf="FC['answerOne'].invalid && (FC['answerOne'].dirty || FC['answerOne'].touched)" class="validationRed">
+                  <p *ngIf="FC['answerOne']?.errors?.required" >
+                    Repeat password is Required
+                  </p>
+                </label> 
               </c-input-group>  
               <div class="d-grid">
                 <button cButton color="success" type="submit" id="submitbtn" [disabled]="!registerForm.valid">Create Account</button>

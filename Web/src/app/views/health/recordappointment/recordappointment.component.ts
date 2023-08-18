@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { IAppointmentModel } from 'src/app/model/Appointment-model';
 import { IAppointmentService } from 'src/app/services/ModuleInterfaces/IAppointment-service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -28,13 +29,25 @@ export class RecordappointmentComponent {
     appointmentAttachment : new FormControl('',[Validators.required]), 
   });
   
-constructor(private appointmentService : IAppointmentService){
+constructor(private appointmentService : IAppointmentService,private route: ActivatedRoute){
   this.uploadFile = null;
   this.uploadProgress =0;
   this.uploadUrl ='';
   this.uploadFileName ='';
   this.uploadFileContent ='';   
-  
+
+  const id = this.route.snapshot.queryParamMap.get('id');
+    console.log(id); // Pepperoni
+
+  if (id!=null) {
+      // to do code for edit
+      // this.appointmentForm.setValue({
+      //   appointmentAt: "", 
+      //   appointmentTime: "",
+      //   appointmentNotes:"",
+      //   appointmentAttachment:""
+      // });
+  }
 }  
 
 handleFileInput(uploadfiles: FileList) {  

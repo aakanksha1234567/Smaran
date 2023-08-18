@@ -45,7 +45,7 @@ export class ForgetpasswordComponent {
   changeFn(e:any){
     this.selectedValue=e.target.value;
   }
-  onSubmit(){    
+  onSubmit(){     
     if(this.forgetpasswordForm.value.Password!=this.forgetpasswordForm.value.repeatPassword){  
       swal.fire("Password and ConfirmPassword Does not match!"); 
       return;
@@ -60,8 +60,7 @@ export class ForgetpasswordComponent {
        Password: this.forgetpasswordForm.value.Password ??"",
      };  
      
-    this.accountService.forgetpassword(model).subscribe((response: any) => {  
-      
+    this.accountService.forgetpassword(model).subscribe((response: any) => {   
        console.log(response.error,"response.error");
       if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
         swal.fire({title:"your password has been changed please login with new credential!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false}); 
@@ -70,7 +69,7 @@ export class ForgetpasswordComponent {
       }
        else
        { 
-         swal.fire({title:"issue while forgetpassword!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
+         swal.fire({title:"Issue while forgetpassword! User information is not correct"});  
        } 
     });    
   }   

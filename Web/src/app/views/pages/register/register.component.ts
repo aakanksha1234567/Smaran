@@ -46,6 +46,8 @@ export class RegisterComponent {
       }]; 
   } 
 
+  get FC() { return this.registerForm.controls; }
+
   changeFn(e:any){
     this.selectedValue=e.target.value;
   }
