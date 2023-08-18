@@ -5,4 +5,6 @@ export abstract class IAppointmentService{
     abstract AddRecord(model: IAppointmentModel,file: any): Observable<any>; 
     abstract getAppointments(): Observable<any>;  
     abstract deleteAppointment(id:any): Observable<any>;  
+    abstract getAppointmentById(id:any): Observable<any>;  
+    abstract UpdateRecord(model: IAppointmentModel,file: any): Observable<any>; 
 }
