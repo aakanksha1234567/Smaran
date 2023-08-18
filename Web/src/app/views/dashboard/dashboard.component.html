@@ -35,7 +35,7 @@
       </thead>
       <tbody>
         <tr  *ngFor="let lst of notificationResponses">
-          <td>{{(lst.typeOfMeeting==1?'Appointmnet':'Meeting')}}</td>
+          <td>{{(lst.typeOfMeeting==1?'Appointment':'Meeting')}}</td>
           <td>{{lst.description}}</td>
           <td>{{lst.scheduleTime}}</td>
           <td><a target="_blank" href="http://localhost:8050/Resources/Images/{{lst.fileAttachment}}"> <img style="width: 100px;" src="http://localhost:8050/Resources/Images/{{lst.fileAttachment}}" /> </a></td>

@@ -10,6 +10,6 @@ APIUrls {
     public static readonly Achievements= "PastAchievements";
     public static readonly Notes="Notes";
     public static readonly MedicalReports="MedicalReports";
-    public static readonly ForgetPassword="User";
+    public static readonly ForgetPassword="User/UpdatePassword/";
 
 }

@@ -23,8 +23,9 @@ export class RecordMedicineComponent {
 constructor(private recordmedicineservice: IRecordMedicineService,private router: Router) {
  }
 
-onSubmit() {   
+onSubmit() {  let userId = (Number)(localStorage.getItem('userId')); 
   var model: IRecordMedicineModel = {
+    UserId: userId,
     MedicineName: this.recordMedicineForm.value.MedicineName ? this.recordMedicineForm.value.MedicineName : "",
     MedicineDose: this.recordMedicineForm.value.MedicineDose ? this.recordMedicineForm.value.MedicineDose : "",
     MedicineDuration: 0,

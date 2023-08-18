@@ -1,5 +1,5 @@
 <br>
-<form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" autocomplete="off">  
+<form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" autocomplete="off" >  
     <div class="row">
         <div class="col-lg-6">
           <div class="form-group">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <label for="Inputmeetingattachment">Upload attachment(in pdf/jpeg etc format):</label>
+            <label for="Inputmeetingattachment">Upload attachment(in pdf/jpeg format):</label>
             <div class="mb-3">
                 <input class="form-control" type="file" id="formFileMultiple"  formControlName="appointmentAttachment" (change)="handleFileInput($any($event.target).files)">
             </div>

@@ -22,12 +22,12 @@
 <div class="row">
         <label for="Inputnotes">Enter comments:</label>
         <div class="form-floating">
-            <textarea formControlName="Comments" class="form-control" placeholder="comments:" id="floatingTextarea2" style="height: 100px"></textarea>
+            <textarea formControlName="Notes" class="form-control" placeholder="comments:" id="floatingTextarea2" style="height: 100px"></textarea>
         </div>
 </div><br>
 <div class="row">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary" type="submit" id="submitbtn" [disabled]="!medicalreportForm.valid">SUBMIT</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!medicalreportForm.valid">SUBMIT</button>
         <a href="http://localhost:4200/#/health/pastmedicalrecords#someAnchor"><button class="btn btn-warning" type="button">PAST MEDICAL REPORTS</button></a>
     </div>
 </div>

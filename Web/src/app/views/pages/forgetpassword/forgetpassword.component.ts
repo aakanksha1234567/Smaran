@@ -46,41 +46,34 @@ export class ForgetpasswordComponent {
     this.selectedValue=e.target.value;
   }
   onSubmit(){    
-
+    console.log("submiiittt");
     if(this.forgetpasswordForm.value.Password!=this.forgetpasswordForm.value.repeatPassword){  
       swal.fire("Password and ConfirmPassword Does not match!"); 
       return;
     }
     this.modelSecurityQas =[];
-   // this.modelSecurityQas.push(new SecurityQaModel(this.selectedValue??"",this.registerForm.value.answerOne??"")); 
+    this.modelSecurityQas.push(new SecurityQaModel(this.selectedValue??"",this.forgetpasswordForm.value.SecurityAnswer??"")); 
 
-    // var model: IUpdatePasswordRequestModel = { 
-    //   FirstName : this.registerForm.value.firstName ?? "",
-    //   LastName  : this.registerForm.value.lastName ?? "",
-    //   IsSelf    : this.registerForm.value.registerFor?true: false,
-    //   Phone     : this.registerForm.value.pohoneNumber ??"",
-    //   Email     : this.registerForm.value.email ?? "",
-    //   Password  : this.registerForm.value.password ?? "",
-    //   SecurityQas : this.modelSecurityQas
-    // };  
+     var model: IUpdatePasswordRequestModel = {
+       Email: this.forgetpasswordForm.value.Email ??"",
+       SecurityQuestion: this.selectedValue,
+       SecurityAnswer: this.forgetpasswordForm.value.SecurityAnswer ??"",
+       Password: this.forgetpasswordForm.value.Password ??"",
+     };  
      
-    // this.accountService.register(model).subscribe((response: any) => {  
+    this.accountService.forgetpassword(model).subscribe((response: any) => {  
       
-    //   console.log(response.error,"response.error");
-    //   if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
-    //     swal.fire({title:"your account is created please login with new credential!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false}); 
-    //     localStorage.removeItem('token');
-    //         this.router.navigate(["/login"]);
-    //   }
-    //   else if(response.error==SystemMessages.UserExistsCode)
-    //   {   
-    //     swal.fire({title:"user with this email already exists!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false}); 
-    //   } 
-    //   else
-    //   { 
-    //     swal.fire({title:"issue while register!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
-    //   } 
-    //});    
+       console.log(response.error,"response.error");
+      if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
+        swal.fire({title:"your password has been changed please login with new credential!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false}); 
+        localStorage.removeItem('token');
+             this.router.navigate(["/login"]);
+      }
+       else
+       { 
+         swal.fire({title:"issue while forgetpassword!",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});  
+       } 
+    });    
   }   
 
 }
