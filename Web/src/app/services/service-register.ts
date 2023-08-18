@@ -9,14 +9,12 @@ import { AppointmentService } from "./ModuleService/appointment-service";
 import { FeedbackService } from "./ModuleService/feedback-service"; 
 import { recordmedicineservice } from "./ModuleService/recordmedicine-service"; 
 import { MeetingService} from './ModuleService/meeting-service';
-import {pastachievementservice} from './ModuleService/PastAchievement-service';
 import {NoteService} from './ModuleService/note-service';
 import {MedicalReportservices} from './ModuleService/medicalreport-service';
 
 import { IFeedbackservices } from "./ModuleInterfaces/IFeedback-services"; 
 import { IRecordMedicineService } from "./ModuleInterfaces/IRecordmedicine-service";
 import { IMeetingservices} from './ModuleInterfaces/IMeeting-services';
-import {IPastAchievementService} from './ModuleInterfaces/IPastAchievement-service';
 import {INoteservices} from './ModuleInterfaces/INote-services';
 import {IMedicalReportservices} from './ModuleInterfaces/IMedicalReport-services';
 
@@ -29,7 +27,6 @@ export const RegisterService = [
     { provide: IFeedbackservices, useClass:FeedbackService },
     { provide: IRecordMedicineService, useClass:recordmedicineservice },
     { provide: IMeetingservices, useClass:MeetingService },
-    { provide: IPastAchievementService, useClass:pastachievementservice },
     { provide: INoteservices, useClass:NoteService },
     { provide: IMedicalReportservices, useClass:MedicalReportservices },
     

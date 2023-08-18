@@ -26,13 +26,13 @@
             <span class="sr-only visually-hidden">Split button!</span>
           </button>
           <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-            <li role="menuitem"><a class="dropdown-item" href="#">Everyday</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Alternate day</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Weekly</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Fortnightly</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Everyday</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Alternate day</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Weekly</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Fortnightly</a></li>
             <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Every 3 months</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Every 6 months</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Every 3 months</a></li>
+            <li formControlName="MedicineDose" role="menuitem"><a class="dropdown-item" >Every 6 months</a></li>
           </ul>
         </div>
       </div>
@@ -47,29 +47,17 @@
             <span class="sr-only visually-hidden">Split button!</span>
           </button>
           <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-            <li role="menuitem"><a class="dropdown-item" href="#">Pre Breakfast</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Post Breakfast</a></li>
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Pre Breakfast</a></li>
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Post Breakfast</a></li>
             <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Pre Lunch</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Post Lunch</a></li>
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Pre Lunch</a></li>
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Post Lunch</a></li>
             <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Pre Dinner</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Post Dinner</a></li> 
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Pre Dinner</a></li>
+            <li formControlName="ScheduleTime" role="menuitem"><a class="dropdown-item" >Post Dinner</a></li> 
           </ul>
         </div>
-        <div class="col-lg-6">
-        <div class="form-check-inline">
-        <label for="Inputmedicinedose" >Status</label><br>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-          <label class="form-check-label" for="inlineRadio1">Taken</label><br>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-          <label class="form-check-label" for="inlineRadio2">Not Taken</label><br>
-        </div>
-        </div>
-      </div>
+      <br><br>
       </div>
   </div><br><br>
     <div class="row">
@@ -90,7 +78,6 @@
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           <button type="submit" id="submitbtn" [disabled]="!recordMedicineForm.valid" class= "btn btn-primary">Submit</button>
-          <button type="button" class="btn btn-danger">Cancel</button>
         </div>
       
     </div>

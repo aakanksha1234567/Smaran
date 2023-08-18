@@ -10,11 +10,15 @@ import { IRecordMedicineModel } from '../../model/recordmedicine-model';
 
 @Injectable()
 export class recordmedicineservice extends IRecordMedicineService {
-    addrecordmedicine(model: IRecordMedicineModel): Observable<any> {
-        return this.baseService.postRequest(APIUrls.RecordMedicine,model);
-    }
+
 
      constructor(private baseService: IBaseService) { 
         super();
      } 
+     addrecordmedicine(model: IRecordMedicineModel): Observable<any> {
+        return this.baseService.postRequest(APIUrls.RecordMedicine,model);
+    }
+     getrecordmedicine(): Observable<any> {
+        return this.baseService.getRequest(APIUrls.RecordMedicine);
+    }
 }

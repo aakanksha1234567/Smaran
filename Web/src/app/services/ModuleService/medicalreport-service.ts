@@ -1,6 +1,6 @@
 import { Observable, expand } from 'rxjs' ;
 import { Injectable } from "@angular/core"; 
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { APIUrls } from '../../constants/api-urls';
 import { IBaseService } from '../ModuleInterfaces/IBase-service';
 import { IFeedbackservices } from '../ModuleInterfaces/IFeedback-services';
@@ -14,15 +14,30 @@ import { IMedicalReportservices } from '../ModuleInterfaces/IMedicalReport-servi
 @Injectable()
 export class MedicalReportservices extends IMedicalReportservices {
 
-     constructor(private baseService: IBaseService) { 
+     constructor(private baseService: IBaseService,private http: HttpClient) { 
         super();
      } 
 
-     override medicalreport(model: IMedicalReportModel): Observable<any> {
-        return this.baseService.postRequest(APIUrls.MedicalReports,model);
+     medicalreport(model: IMedicalReportModel,file:any): Observable<any> {
+        let obj = {
+            model : model,
+            file : file
+          }    
+        //   let headers: HttpHeaders = new HttpHeaders(
+        //     {
+        //         //'Content-Type': 'application/x-www-form-urlencoded'
+        //         'Content-Type': 'application/json'
+        //     }); 
+          //let retVal = this.baseService.postRequestWithHeader(APIUrls.Appointment,file,headers);
+          let retVal = this.baseService.postRequest(APIUrls.MedicalReports,file);
+  
+        //   let localbaseUrl = "http://localhost:4200/assets/systemImages/";
+        //  const upload$ = this.http.post(localbaseUrl, file);  
+        //  upload$.subscribe();
+          return retVal;
     }
 
-    override getMedicalreport(): Observable<any> {
+     getMedicalreport(): Observable<any> {
         return this.baseService.getRequest(APIUrls.MedicalReports);
     }
 

@@ -89,14 +89,11 @@ namespace SmaranAPI.Services
         {
             return _dbContext.Users
                 .Include(u => u.Appointments)
-                .Include(u => u.Budgets)
                 .Include(u => u.Feedbacks)
                 .Include(u => u.MedicalReports)
                 .Include(u => u.Notes)
-                .Include(u => u.PastAchievements)
                 .Include(u => u.RecordMedicines)
                 .Include(u => u.RecordMeetings)
-                .Include(u => u.RecordVaccines)
                 .Include(u => u.UserSecurityQas)
                 .ToList();
         }
@@ -105,14 +102,11 @@ namespace SmaranAPI.Services
         {
             return _dbContext.Users
                 .Include(u => u.Appointments)
-                .Include(u => u.Budgets)
                 .Include(u => u.Feedbacks)
                 .Include(u => u.MedicalReports)
                 .Include(u => u.Notes)
-                .Include(u => u.PastAchievements)
                 .Include(u => u.RecordMedicines)
                 .Include(u => u.RecordMeetings)
-                .Include(u => u.RecordVaccines)
                 .Include(u => u.UserSecurityQas)
                 .FirstOrDefault(u=>u.Email.ToLower() == email.ToLower().Trim());
         }
@@ -121,14 +115,11 @@ namespace SmaranAPI.Services
         {
             return _dbContext.Users
                 .Include(u => u.Appointments)
-                .Include(u => u.Budgets)
                 .Include(u => u.Feedbacks)
                 .Include(u => u.MedicalReports)
                 .Include(u => u.Notes)
-                .Include(u => u.PastAchievements)
                 .Include(u => u.RecordMedicines)
                 .Include(u => u.RecordMeetings)
-                .Include(u => u.RecordVaccines)
                 .Include(u => u.UserSecurityQas)
                 .FirstOrDefault(u => u.Id == id);
         }

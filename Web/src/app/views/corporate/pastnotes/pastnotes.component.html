@@ -10,21 +10,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Python</td>
-        <td>Introduction</td>
-        <td>none</td>
-        <td>Python notes .....</td>
-        <td>23/07/2023</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Computer networks</td>
-        <td>Introduction</td>
-        <td>lecturenote</td>
-        <td>Notes.....</td>
-        <td>18/7/23</td>
+      <tr  *ngFor="let lst of notesrecordResponses">
+        <td>{{(lst.id)}}</td>
+        <td>{{lst.subject}}</td>
+        <td>{{lst.title}}</td>
+        <td><a target="_blank" href="http://localhost:8050/Resources/Images/{{lst.fileAttachment}}"> <img style="width: 100px;" src="http://localhost:8050/Resources/Images/{{lst.fileAttachment}}" /> </a></td>
+        <td>{{lst.notes}}</td>
+        <td>{{lst.createdDate}}</td>
       </tr>
     </tbody>
   </table>

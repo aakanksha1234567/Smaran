@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.RequestModel;
 using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace SmaranAPI.Controllers
 {
@@ -18,11 +21,13 @@ namespace SmaranAPI.Controllers
     {
         private readonly SmaranContext _context;
         private readonly IMapper _mapper;
+       
 
         public MedicalReportsController(SmaranContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+          
         }
 
         // GET: api/MedicalReports
@@ -85,29 +90,31 @@ namespace SmaranAPI.Controllers
         // POST: api/MedicalReports
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MedicalReport>> PostMedicalReport(MedicalReportRequest MedicalReportRequest)
+        public async Task<ActionResult<ResponseObject>> PostMedicalReport()
         {
-            var MedicalReport = _mapper.Map<MedicalReport>(MedicalReportRequest);
-            MedicalReport.CreatedDate = DateTime.Now;
-
-            _context.MedicalReports.Add(MedicalReport);
             try
             {
+                // Get For Collection from frontend
+                var formCollection = await Request.ReadFormAsync();
+                var getModels = formCollection["MedicalReportRequest"];
+
+                // upload file funcationality
+                var fileName = await FileUploadService.Upload(formCollection);
+
+                var modelData = JsonConvert.DeserializeObject<MedicalReportRequest>(getModels);
+                var MedicalReport = _mapper.Map<MedicalReport>(modelData);
+                MedicalReport.CreatedDate = DateTime.Now;
+                MedicalReport.Attachment = fileName;
+                _context.MedicalReports.Add(MedicalReport);
                 await _context.SaveChangesAsync();
+                return new ResponseObject() { Data = MedicalReport.Id };
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-                if (MedicalReportExists(MedicalReport.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return new ResponseObject() { Error = ex.Message }; ;
             }
 
-            return CreatedAtAction("GetMedicalReport", new { id = MedicalReport.Id }, MedicalReport);
+
         }
 
         // DELETE: api/MedicalReports/5

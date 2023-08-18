@@ -15,10 +15,11 @@ import { SystemMessages } from 'src/app/constants/messages';
 export class RecordMedicineComponent { 
   recordMedicineForm = new FormGroup({
     MedicineName: new FormControl('',[Validators.required]),
-    MedicineMg: new FormControl('',[Validators.required]),
+    MedicineMg: new FormControl('',[Validators.pattern('^[1-9][0-9]+$'),Validators.required,Validators.minLength(2),Validators.maxLength(4)]),
     MedicineDose:new FormControl('',[Validators.required]),
-    MedicineDuration: new FormControl('',[Validators.required]),
+    MedicineDuration: new FormControl('',[Validators.pattern('^[1-9][0-9]+$'),Validators.required,Validators.minLength(1),Validators.maxLength(4)]),
     MedicineReaction: new FormControl('',[Validators.required]),
+    ScheduleTime : new FormControl('',[Validators.required]),
 })
 constructor(private recordmedicineservice: IRecordMedicineService,private router: Router) {
  }
@@ -30,7 +31,8 @@ onSubmit() {  let userId = (Number)(localStorage.getItem('userId'));
     MedicineDose: this.recordMedicineForm.value.MedicineDose ? this.recordMedicineForm.value.MedicineDose : "",
     MedicineDuration: 0,
     MedicineReaction: this.recordMedicineForm.value.MedicineReaction ? this.recordMedicineForm.value.MedicineReaction : "",
-    MedicineMg: 0
+    MedicineMg: 0,
+    ScheduleTime: this.recordMedicineForm.value.ScheduleTime ?  this.recordMedicineForm.value.ScheduleTime :"", 
   };  
 
   this.recordmedicineservice.addrecordmedicine(model).subscribe((response: any) => { 
