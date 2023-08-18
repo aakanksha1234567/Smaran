@@ -23,6 +23,10 @@ export class PastappointmentrecordsComponent implements OnInit {
     });
   }
 
+  onAddRecord(){
+    this.router.navigate(["/health/recordappointment"]); 
+  }
+
   onUpdate(ev:any){
     this.router.navigate(["/health/recordappointment"],{queryParams:{id:ev.id}}); 
   }
@@ -38,7 +42,7 @@ export class PastappointmentrecordsComponent implements OnInit {
            }
             else
             { 
-              swal.fire({title:"Issue while forgetpassword! AuAunthnticate user"});  
+              swal.fire({title:"Issue while delete appointment ! Please check."});  
             } 
          });    
       }

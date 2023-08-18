@@ -31,9 +31,23 @@ export class AppointmentService extends IAppointmentService {
       return this.baseService.getRequest(APIUrls.GetAppointments+userId);
   } 
 
-  deleteAppointment(id:any): Observable<any> { 
-    let userId = (Number)(localStorage.getItem('userId')); 
+  deleteAppointment(id:any): Observable<any> {  
     return this.baseService.deleteRequest(APIUrls.DeleteAppointments+id);
 } 
  
+
+getAppointmentById(id:any): Observable<any> {  
+  return this.baseService.getRequest(APIUrls.GetAppointmentById+id);
+} 
+
+
+UpdateRecord(model: IAppointmentModel,file : any): Observable<any>{
+  let obj = {
+    model : model,
+    file : file
+  }     
+  let retVal = this.baseService.putRequest(APIUrls.Appointment,file); 
+  return retVal;
+} 
+
 }

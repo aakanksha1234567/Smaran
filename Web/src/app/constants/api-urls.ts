@@ -12,5 +12,5 @@ APIUrls {
     public static readonly ForgetPassword="User/UpdatePassword/";
     public static readonly  GetAppointments= "Appointment/User/"; 
     public static readonly  DeleteAppointments= "Appointment/"; 
-
+    public static readonly  GetAppointmentById= "Appointment/";  
 }

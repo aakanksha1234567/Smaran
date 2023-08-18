@@ -57,24 +57,42 @@ namespace SmaranAPI.Controllers
 
         // PUT: api/Appointment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, AppointmentRequest appointmentRequest)
+        [HttpPut]
+        public async Task<ResponseObject> PutAppointment()
         {
-            var appointment = _mapper.Map<Appointment>(appointmentRequest);
-            appointment.Id = id;
-            appointment.UpdateDate = DateTime.Now;
+            var formCollection = await Request.ReadFormAsync();
+            var getModels = formCollection["AppointmentRequest"];
+            var id = formCollection["AppointmentId"];
 
-            _context.Entry(appointment).State = EntityState.Modified;
+            // upload file funcationality
+            var fileName = await FileUploadService.Upload(formCollection);
+
+            var modelData = JsonConvert.DeserializeObject<AppointmentRequest>(getModels);
+            var appointment = _mapper.Map<Appointment>(modelData);  
+            appointment.UpdateDate = DateTime.Now;
+            appointment.Id = Convert.ToInt32(id);
+
+            var appointmentGet = await _context.Appointments.FindAsync(appointment.Id);
+
+            if (appointmentGet != null)
+            {
+                appointmentGet.AppointmentAt = appointment.AppointmentAt;
+                appointmentGet.AppointmentNotes = appointment.AppointmentNotes; 
+                appointmentGet.AppointmentAttachment = fileName;
+                appointmentGet.AppointmentTime = appointment.AppointmentTime; 
+            }
+
+            _context.Entry(appointmentGet).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!AppointmentExists(id))
+                if (!AppointmentExists(appointment.Id))
                 {
-                    return NotFound();
+                    return new ResponseObject() { Error = ex.Message }; ;
                 }
                 else
                 {
@@ -82,7 +100,7 @@ namespace SmaranAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return new ResponseObject() { Data = appointmentGet.Id };
         }
 
         // POST: api/Appointment

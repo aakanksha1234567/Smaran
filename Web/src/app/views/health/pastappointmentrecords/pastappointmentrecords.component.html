@@ -1,4 +1,10 @@
-<div style="padding-top: 100px;">     
+<div>
+    <button class="btn btn-primary" type="button" (click) = "onAddRecord()" style="float: right;" >Add record</button>    
+</div>
+
+<div style="padding-top: 50px;"> 
+
+    
     <p-table  #dt1 
              [value]="appointmentResponses"   
              [tableStyle]="{'min-width': '60rem'}"   

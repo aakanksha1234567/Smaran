@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { IAppointmentModel } from 'src/app/model/Appointment-model';
 import { IAppointmentService } from 'src/app/services/ModuleInterfaces/IAppointment-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -21,6 +21,8 @@ export class RecordappointmentComponent {
   uploadFileName: string;
   uploadFileContent:string; 
   uploadfilesData: any;
+  idData:boolean=false;
+  existingImage:string ="";
 
   appointmentForm = new FormGroup({
     appointmentAt: new FormControl('',[Validators.required]),
@@ -29,24 +31,17 @@ export class RecordappointmentComponent {
     appointmentAttachment : new FormControl('',[Validators.required]), 
   });
   
-constructor(private appointmentService : IAppointmentService,private route: ActivatedRoute){
+constructor(private appointmentService : IAppointmentService,private route: ActivatedRoute,private router: Router){
   this.uploadFile = null;
   this.uploadProgress =0;
   this.uploadUrl ='';
   this.uploadFileName ='';
-  this.uploadFileContent ='';   
-
-  const id = this.route.snapshot.queryParamMap.get('id');
-    console.log(id); // Pepperoni
-
+  this.uploadFileContent ='';     
+  const id = this.route.snapshot.queryParamMap.get('id');  
   if (id!=null) {
-      // to do code for edit
-      // this.appointmentForm.setValue({
-      //   appointmentAt: "", 
-      //   appointmentTime: "",
-      //   appointmentNotes:"",
-      //   appointmentAttachment:""
-      // });
+    this.idData = true;
+      // to do code for edit 
+      this.SetValueOnLoad(id); 
   }
 }  
 
@@ -60,7 +55,26 @@ handleFileInput(uploadfiles: FileList) {
   }       
 }
 
-onSubmit(){   
+SetValueOnLoad(id:any){
+  
+  this.appointmentService.getAppointmentById(id).subscribe((response: any) => { 
+
+    console.log(response,"response");
+ 
+    this.existingImage = response.appointmentAttachment
+
+    this.appointmentForm.setValue({
+      appointmentAt: response.appointmentAt, 
+      appointmentTime: response.appointmentTime,
+      appointmentNotes:response.appointmentNotes,
+      appointmentAttachment:''
+    });
+
+  }); 
+}
+
+onSubmit(){    
+
   if (this.uploadfilesData.length==0) {
     swal.fire({title:"Choose file to upload.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false});    
     return;   
@@ -88,16 +102,36 @@ onSubmit(){
  
 
   formData.append("AppointmentRequest",JSON.stringify(model))
-  this.appointmentService.AddRecord(model,formData).subscribe((response: any) => { 
-    if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
 
-        swal.fire({title:"Appointment Added Successfully.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "success"});   
-    }
-    else
-    {
-      swal.fire({title:"Appointment error.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});    
-    } 
-  }); 
+  const id = this.route.snapshot.queryParamMap.get('id');  
+  if (id==null) { 
+      this.appointmentService.AddRecord(model,formData).subscribe((response: any) => { 
+        if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
+
+            swal.fire({title:"Appointment Added Successfully.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "success"});   
+            this.router.navigate(["/health/pastappointmentrecords"]);   
+        }
+        else
+        {
+          swal.fire({title:"Appointment error.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});    
+        } 
+      });  
+  }
+  else{
+
+    formData.append("AppointmentId",id);
+    this.appointmentService.UpdateRecord(model,formData).subscribe((response: any) => { 
+      if (response.error == null || response.error == "" || response.error == null || response.error == undefined) { 
+
+          swal.fire({title:"Appointment Updated Successfully.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "success"}); 
+          this.router.navigate(["/health/pastappointmentrecords"]);   
+      }
+      else
+      {
+        swal.fire({title:"Appointment error.",timer:3000, toast: true,position: 'top-right',showCancelButton: false,showConfirmButton: false,icon: "error"});    
+      } 
+    });  
+  }
 }  
 
 }

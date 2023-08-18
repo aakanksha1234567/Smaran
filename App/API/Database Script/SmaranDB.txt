@@ -174,23 +174,31 @@ CREATE TABLE [dbo].[RecordMedicine]
 )
 
 
-CREATE PROCEDURE [dbo].[GetNotifications](
+GO
+/****** Object:  StoredProcedure [dbo].[GetNotifications]    Script Date: 18-08-2023 20:21:52 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+--[GetNotifications] 2
+ALTER   PROCEDURE [dbo].[GetNotifications](
 	@UserID int
 )
 AS
 BEGIN
-	SELECT 
+	SELECT 1 As TypeOfMeeting,
 		'You have an appointment - ' + AppointmentNotes + ' at ' + AppointmentAt + ' on ' + Format(AppointmentTime, 'dd/MM/yyyy hh:mm') As [Description],
-		AppointmentTime As [ScheduleTime]
+		AppointmentTime As [ScheduleTime],AppointmentAttachment As FileAttachment
 	FROM Appointment 
 	WHERE UserID = @UserID
 		AND AppointmentTime > GETDATE()
 	
 	UNION
 	
-	SELECT 
+	SELECT 2 As TypeOfMeeting,
 		'You have an meeting - ' + Notes + ' with ' + MeetingWith + ' at ' + MeetingPlace + ' on ' + Format(MeetingTime, 'dd/MM/yyyy hh:mm') As [Description],
-		 MeetingTime As [ScheduleTime]
+		 MeetingTime As [ScheduleTime],AppointmentAttachment As FileAttachment
 	FROM RecordMeetings 
 	WHERE UserID = @UserID
 		AND MeetingTime > GETDATE()
